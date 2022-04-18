@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CoolOrganic_Project.Models.Entity.tblProduct>
+@{ 
+    var format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+@foreach (var s in Model)
+{
+    <div class="col-6 col-lg-3 col-sm-6 ">
+        <div class="item">
+            <div class="product-box-h">
+                <div class="product-thumbnail">
+                    <a class="image_link d-flex justify-content-center align-item-center"
+                       href="#"
+                       title="Chanh tươi">
+                        <img src="~/Content/images/@s.Anh"
+                             alt="@s.TenSanPham" />
+                    </a>
+                    <div class="product-action">
+                        <form>
+                            <div class="group_action">
+                                <a href="/CartProduct/AddToCart/@s.MaSanPham"
+                                   class="btn-buy btn-cart btn add_to_cart"
+                                   title="Mua ngay">
+                                </a>
+                                <a title="Xem nhanh"
+                                   href="#"
+                                   class="xem_nhanh btn_view btn">
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">
+                        <a href="#" title="Chanh tươi"> @s.TenSanPham </a>
+                    </h3>
+                    <div class="product-hideoff">
+                        <div class="product-hide">
+                            <div class="price-box">
+                                <div class="special-price">
+                                    <span class="price-test product-price"> @String.Format(format,"{0:c0}",s.DonGiaban) </span>
+                                </div>
+
+                                <div class="old-price">
+                                    <span class="price product-price-old">
+                                        @String.Format(format, "{0:c0}", s.DonGiaban)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function formatCash(str) {
+        return str.split(' ').reverse().reduce((prev, next, index) => {
+            return ((index % 3) ? next : (next + ',')) + prev
+        })
+    }
+    var price = $('span.price-test').text();
+    //var price_format = formatCash(price);
+
+</script>
+<script>
+    //$('span.price-test').text(price_format);
+</script>

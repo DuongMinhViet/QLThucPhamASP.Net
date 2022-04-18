@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<div>
+    <h1 style="margin:0px">Thông tin cơ bản</h1>
+    <p>ID: @Session["idAdmin"].ToString()</p>
+    <p>Username: @Session["Username"].ToString()</p>
+    <p>Password: @Session["Password"].ToString()</p>
+</div>

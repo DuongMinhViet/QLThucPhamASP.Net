@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="content-header">
+    </div>
+    <div class="content-body">
+        <div class="page-title">
+            <h1>Chi tiết hoá đơn</h1>
+        </div>
+        <div class="grid-content">
+            <div class="toolbar">
+                @foreach (var s in ViewBag.inforheader)
+                {
+                    <p style="margin-right: 20px; "><b>Số hoá đơn:</b> @s.bill.SoHD</p>
+                    <p><b>Tên khách hàng:</b> @s.customer.TenKhachHang</p>
+                }
+            </div>
+            <div class="grid">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Số TT</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Đơn vị tính</th>
+                            <th>Số lượng</th>
+                            <th>Khuyến mãi</th>
+                            <th>Đơn giá</th>
+                            <th>Địa chỉ</th>
+                            <th>Thành Tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            double tongtien = 0;
+                            int i = 0;
+                        }
+                        @foreach (var s in ViewBag.inforcontent)
+                        {
+                            i++;
+                            tongtien += (Convert.ToDouble(@s.billdetails.SoLuongBan) * Convert.ToDouble(@s.product.DonGiaban)) * Convert.ToDouble(s.billdetails.KhuyenMai);
+                            <tr>
+                                <td>@i</td>
+                                <td>@s.product.TenSanPham</td>
+                                <td>@s.product.DonViTinh</td>
+                                <td>@String.Format("{0:0,##0}", s.billdetails.SoLuongBan)</td>
+                                <td>@s.billdetails.KhuyenMai</td>
+                                <td>@String.Format("{0:0,##0}", s.product.DonGiaban)</td>
+                                <td>@s.customer.DiaChi</td>
+                                <td>@String.Format("{0:0,##0}", s.TongTien)</td>
+                            </tr>
+                        }
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Tổng tiền:</th>
+                            <th>@String.Format("{0:0,##0}", tongtien)</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

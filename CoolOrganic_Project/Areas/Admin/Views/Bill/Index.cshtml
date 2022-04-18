@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@model IEnumerable<CoolOrganic_Project.Models._Bill>
+<div class="content">
+    <div class="content-header">
+    </div>
+    <div class="content-body">
+        <div class="page-title">
+            <h1>Danh sách sản phẩm</h1>
+
+        </div>
+        <div class="grid-content">
+            <div class="toolbar">
+                <div class="Control-Button">
+                    <button class="btnAdd"><i class="icon icon-add"></i>Thêm mới</button>
+                </div>
+            </div>
+            <div class="grid">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã hoá đơn</th>
+                            <th>Ngày bán</th>
+                            <th>Mã khách hàng</th>
+                            <th>Mã đơn vị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var s in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("Index", "BillDetail", new { SoHD = s.tmpBill.SoHD})">
+                                        @Html.DisplayFor(x => s.tmpBill.SoHD)
+                                    </a>
+
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => s.tmpBill.NgayBan)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => s.tmpCustomer.TenKhachHang)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => s.tmpTransport.MaDonVi)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", new { id = s.tmpBill.SoHD }) |
+                                    @Html.ActionLink("Chi tiết", "Details", new { id = s.tmpBill.SoHD }) |
+                                    @Html.ActionLink("Xoá", "Delete", new { id = s.tmpBill.SoHD }) |
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dialog"></div>
+<div class="dialog-product">
+    <div class="dialog-product-title">
+        <div class="title-text">
+            Thông tin hoá đơn
+        </div>
+        <div class="title-close-button"></div>
+    </div>
+    <div class="dialog-product-body">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Số hoá đơn: </td>
+                    <td><input type="text" id="txtSoHD" name="SoHD" placeholder="Số hoá đơn" /></td>
+                </tr>
+                <tr>
+                    <td>Ngày bán: </td>
+                    <td><input type="datetime-local" id="txtDatetime" name="DateTime" /></td>
+                </tr>
+                <tr>
+                    <td>Mã khách hàng: </td>
+                    <td><input type="text" id="txtMaKhachHang" name="MaKhachHang" placeholder="Mã khách hàng" value="" /></td>
+                </tr>
+                <tr>
+                    <td>Tên khách hàng: </td>
+                    <td><input type="text" id="txtTenKhachHang" name="TenKhachHang" placeholder="Tên khách hàng" /></td>
+                </tr>
+                <tr>
+                    <td>Số Điện thoại: </td>
+                    <td><input type="text" id="txtSoDienThoai" name="SoDienThoai" placeholder="Số điện thoại" /></td>
+                </tr>
+                <tr>
+                    <td>Địa chỉ: </td>
+                    <td><input type="text" id="txtDiaChi" name="DiaChi" placeholder="Địa chỉ" /></td>
+                </tr>
+                <tr>
+                    <td>Mã sản phẩm: </td>
+                    <td><input type="text" id="txtMaSanPham" name="MaSanPham" placeholder="Mã sản phẩm" /></td>
+                </tr>
+                <tr>
+                    <td>Tên sản phẩm: </td>
+                    <td><input type="text" id="txtTenSanPham" name="TenSanPham" placeholder="Tên sản phẩm" /></td>
+                </tr>
+                <tr>
+                    <td>Đơn giá: </td>
+                    <td><input type="text" id="txtDonGiaban" name="DonGiban" placeholder="Đơn giá bán" /></td>
+                </tr>
+                <tr>
+                    <td>Đơn vị tính: </td>
+                    <td><input type="text" id="txtDonViTinh" name="DonViTinh" placeholder="Đơn vị tính" /></td>
+                </tr>
+                <tr>
+                    <td>Số lượng: </td>
+                    <td><input type="text" id="txtSoLuongBan" name="SoLuongBan" placeholder="Số lượng" /></td>
+                </tr>
+                <tr>
+                    <td>Khuyến mãi: </td>
+                    <td><input type="text" id="txtKhuyenMai" name="KhuyenMai" placeholder="Khuyến mãi" /></td>
+                </tr>
+                <tr>
+                    <td>Đơn vị vận chuyển: </td>
+                    <td><input type="text" id="txtMaDonVi" name="MaDonVi" placeholder="Mã đơn vị" /></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding: 3px 6px">
+                                Vận chuyển
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu list-group" id="vanchuyen-menu" aria-labelledby="dropdownMenu1">
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="dialog-product-button add-button" style="display:none">
+        <button class="btnSave Save-Add btn-primary" onclick="InsertProduct();">Thêm mới</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        ButtonClickEvent();
+        ListTransport();
+    })
+    function ButtonClickEvent() {
+        $('.btnAdd').click(function () {
+            $('.dialog-product input').val(null);
+            $('.dialog').show();
+            $('.dialog-product').show();
+            $('.add-button').show();
+            $('#txtSoHD').attr('disabled', 'disabled');
+            $('#txtMaKhachHang').attr('disabled', 'disabled');
+            $('#txtTenSanPham').attr('disabled', 'disabled');
+            $('#txtDonGiaban').attr('disabled', 'disabled');
+            $('#txtDonViTinh').attr('disabled', 'disabled');
+            $('#txtMaDonVi').attr('disabled', 'disabled');
+
+            $.ajax({
+                url: 'https://localhost:44397/GetLastBill',
+                method: 'GET',
+                success: function (response) {
+                    var SoHD = response + 1;
+                    $('#txtSoHD').val(SoHD);
+                }
+            })
+
+            $.ajax({
+                url: 'https://localhost:44397/GetLastCustomer',
+                method: 'GET',
+                success: function (response) {
+                    var MaKhachHang = response + 1;
+                    $('#txtMaKhachHang').val(MaKhachHang);
+                }
+            })
+
+            $('#txtMaSanPham').change(function () {
+                var MaSanPham = $('#txtMaSanPham').val();
+                $.ajax({
+                    url: 'https://localhost:44397/GetProduct/' + MaSanPham,
+                    method: 'GET',
+                    success: function (response) {
+                        $('#txtTenSanPham').val(response.TenSanPham);
+                        $('#txtDonGiaban').val(response.DonGiaban);
+                        $('#txtDonViTinh').val(response.DonViTinh);
+                    }
+                })
+            })
+
+        });
+        $('.btnCancel').click(function () {
+            $('.dialog').hide();
+            $('.dialog-product').hide();
+        });
+        $('.title-close-button').click(function () {
+            $('.dialog').hide();
+            $('.dialog-product').hide();
+        })
+    }
+    function ListTransport() {
+        $.ajax({
+            url: 'https://localhost:44397/Transport',
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+
+            },
+            success: function (response) {
+                const len = response.length;
+                console.log(response);
+                let ul = '';
+                for (var i = 0; i < len; i++) {
+                    ul = ul + '<li><a>' + response[i].TenDonVi + '</a></li>';
+                }
+                document.getElementById("vanchuyen-menu").innerHTML = ul;
+            },
+            fail: function (response) { }
+        });
+    }
+    //Link ra mã đơn vị vận chuyển
+    $(document).on('click', 'ul#vanchuyen-menu li', function () {
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        var TenDonVi = $('ul#vanchuyen-menu li.active').text();
+        $.ajax({
+            url: 'https://localhost:44397/GetIdTransport/' + TenDonVi,
+            method: 'GET'
+        }).done(function (response) {
+            $('#txtMaDonVi').val(response);
+        }).fail(function (response) {
+
+        })
+    })
+
+
+</script>
+
+
+

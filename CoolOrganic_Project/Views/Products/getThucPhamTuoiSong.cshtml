@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Thực Phẩm Tươi Sống";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+@{
+    var format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="container">
+    <div class="row">
+        <div class="title_container">
+            <div class="text-center">
+                <p class="title_page">@ViewBag.Title</p>
+            </div>
+            <div class="title_content">
+                <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            @Html.ActionLink("Trang chủ", "Index", "TrangChu")
+                        </li>
+                        <li class="breadcrumb-item active"
+                            aria-current="page"
+                            style="color: rgb(170, 196, 97)">
+                            Các loại thực phẩm tươi sống
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="content_container">
+            <div class="sortPagiBar">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+                        <div class="box-heading">
+                            <h1 class="title-head mt-0">Thực phẩm tươi sống</h1>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                        <div class="sort-cate clearfix">
+                            <div class="sort-cate-left d-md-block d-none">
+                                <h3>Sắp xếp theo:</h3>
+                                <ul>
+                                    <li class="btn-quick-sort price-thucphamtuoisong-asc">
+                                        <a><i></i>Giá tăng dần</a>
+                                    </li>
+                                    <li class="btn-quick-sort price-thucphamtuoisong-desc">
+                                        <a><i></i>Giá giảm dần</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content_products row">
+                @foreach (var s in ViewBag.product)
+                {
+                    <div class="col-6 col-lg-3 col-sm-6">
+                        <div class="item">
+                            <div class="product-box-h">
+                                <div class="product-thumbnail">
+                                    <a class="image_link d-flex justify-content-center align-item-center"
+                                       href="#"
+                                       title="@s.TenSanPham">
+                                        <img src="~/Content/images/@s.Anh"
+                                             alt="@s.TenSanPham" />
+                                    </a>
+                                    <div class="product-action">
+                                        <form>
+                                            <div class="group_action">
+                                                <a href="/CartProduct/AddToCart/@s.MaSanPham"
+                                                   class="btn-buy btn-cart btn add_to_cart"
+                                                   title="Mua ngay">
+                                                </a>
+
+                                                <a title="Xem nhanh"
+                                                   href="#"
+                                                   class="xem_nhanh btn_view btn">
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">
+                                        <a href="#" title="@s.TenSanPham"> @s.TenSanPham </a>
+                                    </h3>
+
+                                    <div class="product-hideoff">
+                                        <div class="product-hide">
+                                            <div class="price-box">
+                                                <div class="special-price">
+                                                    <span class="price product-price"> @String.Format(format, "{0:c0}", s.DonGiaban) </span>
+                                                </div>
+
+                                                <div class="old-price">
+                                                    <span class="price product-price-old">
+                                                        @String.Format(format, "{0:c0}", s.DonGiaban)
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.price-thucphamtuoisong-asc').click(function () {
+        $.ajax({
+            url: 'ThucPhamTuoiSongASC',
+            success: function (response) {
+                $('.content_products').html(response);
+            }
+        })
+    })
+    $('.price-thucphamtuoisong-desc').click(function () {
+        $.ajax({
+            url: 'ThucPhamTuoiSongDESC',
+            success: function (response) {
+                $('.content_products').html(response);
+            }
+        })
+    })
+</script>
+
+
+
+
+
+
+
+
+

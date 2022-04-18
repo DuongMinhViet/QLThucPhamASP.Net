@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Icon Browser -->
+    <link rel="icon" href="~/Content/images/logo.png" type="image/x-icon" />
+    <!-- Google Font -->
+    <link rel="stylesheet" href="~/fonts/font/font.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/FontAwesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/Content/FontAwesome/css/fontawesome.min.css" />
+
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="~/Content/bootstrap/bootstrap.css" />
+    <script src="~/Scripts/bootstrap/bootstrap.js"></script>
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+
+    <!-- JS -->
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/js/script.js"></script>
+    <script src="~/Scripts/js/zoomsl.min.js"></script>
+
+    <title>Thực phẩm sạch</title>
+</head>
+<body>
+    @Html.Partial("Header")
+    <main>
+        @RenderBody()
+    </main>
+    @Html.Partial("Footer")
+
+</body>
+</html>

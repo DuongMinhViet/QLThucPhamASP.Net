@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Shopping_Success";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<main style="background-color: rgb(24, 26, 27);">
+    <div class="container checkout_success">
+        <i class="fa-solid fa-check"></i>
+        <h3>ĐẶT HÀNG THÀNH CÔNG</h3>
+        <p>Cảm ơn bạn đã đặt hàng tại CoolOrganic. Nhân viên sẽ liên hệ sớm</p>
+        <p>nhất để xác nhận đơn hàng.</p>
+        @Html.ActionLink("Tiếp tục mua sắm", "Index", "TrangChu", null, new { @class = "btn btn-primary" })
+    </div>
+</main>
+

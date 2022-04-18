@@ -1,0 +1,311 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+<div class="content">
+    <div class="content-header">
+    </div>
+    <div class="content-body">
+        <div class="page-title">
+            <h1>Danh sách đơn vị vận chuyển</h1>
+        </div>
+        <div class="grid-content">
+            <div class="toolbar">
+                <div class="Control-Button">
+                    <button class="btnAdd"><i class="icon icon-add"></i>Thêm mới</button>
+                    <button class="btnEdit"><i class="icon icon-edit"></i>Sửa</button>
+                    <button class="btnDelete"><i class="icon icon-delete"></i>Xoá</button>
+                </div>
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control text-search" placeholder="Tìm kiếm" />
+                    </div>
+                    <button type="button" class="btn btn-primary btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="grid">
+                <table id="tblProduct" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn vị</th>
+                            <th>Tên đơn vị</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allProduct"></tbody>
+                </table>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination" style="margin:0" id="PhanTrang">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="dialog"></div>
+<div class="dialog-product">
+    <div class="dialog-product-title">
+        <div class="title-text">
+            Thông tin đơn vị vận chuyển
+        </div>
+        <div class="title-close-button"></div>
+    </div>
+    <div class="dialog-product-body">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Mã đơn vị: </td>
+                    <td><input type="text" id="txtMaDonVi" name="MaDonVi" placeholder="Mã đơn vị" /></td>
+                </tr>
+                <tr>
+                    <td>Tên đơn vị: </td>
+                    <td><input type="text" id="txtTenDonVi" name="TenDonVi" placeholder="Tên đơn vị" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="dialog-product-button add-button" style="display:none">
+        <button class="btnSave Save-Add btn-primary" onclick="InsertProduct();">Thêm mới</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+    <div class="dialog-product-button edit-button" style="display:none">
+        <button class="btnSave Save-Edit btn-primary" onclick="EditProduct();">Sửa</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+    <div class="dialog-product-button delete-button" style="display:none">
+        <button class="btnSave Save-Delete btn-primary" onclick="DeleteProduct();">Xoá</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+</div>
+
+<script>
+    var Page = 1;
+    var numberPage = 7;
+    $(document).ready(function () {
+        ButtonClickEvent();
+        ListTransport(Page);
+    })
+    //Load danh sách đơn vị vận chuyển\
+    function ButtonClickEvent() {
+        //click Phân trang
+        $('#PhanTrang').on('click', 'li', function (e) {
+            e.preventDefault();
+            Page = $(this).text();
+            ListTransport(Page);
+        })
+        $('.btnAdd').click(function () {
+            $('.dialog-product input').val(null);
+            $('.dialog').show();
+            $('.dialog-product').show();
+            $('.add-button').show();
+            $('.edit-button').hide();
+            $('.delete-button').hide();
+            $('.dialog-product-body input').removeAttr('disabled');
+            $('#txtMaDonVi').attr('disabled', 'disabled');
+
+            $.ajax({
+                url: 'https://localhost:44397/GetLastTransport',
+                method: 'GET',
+                success: function (response) {
+                    var MaDonVi = response + 1;
+                    $('#txtMaDonVi').val(MaDonVi);
+                }
+            })
+        });
+        //click Sửa thông tin transport
+        $('.btnEdit').click(function () {
+            //Lấy dữ liệu của sách đã chọn tương ứng
+            var trSelected = $('#allProduct tr.row-selected');
+            if (trSelected.length > 0) {
+                //hiện thị form tương ứng
+                $('.dialog-product-body input').removeAttr('disabled');
+                $('.dialog').show();
+                $('.dialog-product').show();
+                $('.edit-button').show();
+                $('.add-button').hide();
+                $('.delete-button').hide();
+                var MaDonVi = $(trSelected).children()[0].textContent;
+                $.ajax({
+                    url: 'https://localhost:44397/GetTransport/' + MaDonVi,
+                    method: 'GET'
+                }).done(function (response) {
+                    if (!response) {
+                        alert("Không có đơn vị có mã là: " + MaDonVi);
+                    }
+                    else {
+                        //binding các thông tin của sản phẩm lên fom
+                        $('#txtMaDonVi').val(response.MaDonVi);
+                        $('#txtMaDonVi').attr('disabled', 'true');
+                        $('#txtTenDonVi').val(response.TenDonVi);
+
+                    }
+                }).fail(function (response) {
+
+                })
+            }
+            else {
+                alert('Bạn phải chọn đơn vị cần chỉnh sửa');
+            }
+        });
+        $('.btnDelete').click(function () {
+            //Lấy dữ liệu của sách đã chọn tương ứng
+            var trSelected = $('#allProduct tr.row-selected');
+            if (trSelected.length > 0) {
+                //hiện thị form tương ứng
+                $('.dialog-product-body input').removeAttr('disabled');
+                $('.dialog').show();
+                $('.dialog-product').show();
+                $('.edit-button').hide();
+                $('.add-button').hide();
+                $('.delete-button').show();
+                var MaDonVi = $(trSelected).children()[0].textContent;
+                $.ajax({
+                    url: 'https://localhost:44397/GetTransport/' + MaDonVi,
+                    method: 'GET'
+                }).done(function (response) {
+                    if (!response) {
+                        alert("Không có đơn vị có mã là: " + MaDonVi);
+                    }
+                    else {
+                        //binding các thông tin của sản phẩm lên fom
+                        $('#txtMaDonVi').val(response.MaDonVi);
+                        $('#txtTenDonVi').val(response.TenDonVi);
+                        $('.dialog-product-body input').attr('disabled', 'true');
+                    }
+                }).fail(function (response) {
+
+                })
+            }
+            else {
+                alert('Bạn phải chọn đơn vị cần xoá');
+            }
+        });
+        $('.btnCancel').click(function () {
+            $('.dialog').hide();
+            $('.dialog-product').hide();
+        });
+        $('.title-close-button').click(function () {
+            $('.dialog').hide();
+            $('.dialog-product').hide();
+        })
+    }
+    function ListTransport(Page) {
+        var url = 'https://localhost:44397/ListTransport/' + Page;
+        $.ajax({
+            url: url,
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+
+            },
+            success: function (response) {
+                $('allProduct').empty();
+                const len = response.length;
+                console.log(response);
+                let table = '';
+                for (var i = 0; i < len; ++i) {
+                    table = table + '<tr>';
+                    table = table + '<td>' + response[i].MaDonVi + '</td>';
+                    table = table + '<td>' + response[i].TenDonVi + '</td>';
+                    table = table + '</tr>';
+                }
+                document.getElementById('allProduct').innerHTML = table;
+            },
+            fail: function (response) { }
+        });
+        let li = ' ';
+        for (i = 1; i <= numberPage; i++) {
+            li = li + '<li><a href="#">' + i + '</a></li>'
+        }
+        document.getElementById('PhanTrang').innerHTML = li;
+    }
+    function InsertProduct() {
+        //Validate dữ liệu
+        var MaDonVi = $('#txtMaDonVi').val();
+        var TenDonVi = $('#txtTenDonVi').val()
+        if (!TenDonVi) {
+            $('#txtTenDonVi').addClass('required-error');
+            $('#txtTenDonVi').focus();
+            $('#txtTenDonVi').attr("placeholder", "Bạn phải nhập tên đơn vị");
+            return;
+        }
+        var url = 'https://localhost:44397/api/manage?MaDonVi=' + MaDonVi +
+            '&TenDonVi=' + TenDonVi;
+        $.ajax({
+            url: url,
+            method: 'POST',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+                alert("Thêm mới không thành công");
+            },
+            success: function (reponse) {
+                alert("Thêm mới thành công");
+                ListTransport(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            }
+        });
+    }
+    function EditProduct() {
+        //CHỉnh sửa dữ liệu trên form
+        //Validate dữ liệu
+        var MaDonVi = $('#txtMaDonVi').val();
+        var TenDonVi = $('#txtTenDonVi').val()
+        if (!TenDonVi) {
+            $('#txtTenDonVi').addClass('required-error');
+            $('#txtTenDonVi').focus();
+            $('#txtTenDonVi').attr("placeholder", "Bạn phải nhập tên đơn vị");
+            return;
+        }
+        //Thực hiện lưu dữ liệu
+        var url = 'https://localhost:44397/api/manage?MaDonVi=' + MaDonVi +
+            '&TenDonVi=' + TenDonVi;
+        $.ajax({
+            url: url,
+            method: 'PUT',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+                alert("Sửa thông tin đơn vị không thành công");
+            },
+            success: function (response) {
+                alert("Sửa thông tin đơn vị thành công");
+                ListTransport(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            }
+        });
+    }
+    function DeleteProduct() {
+        //Lấy ra mã sách đang được chọn
+        var MaDonVi = $('#txtMaDonVi').val();
+        var url = 'https://localhost:44397/DeleteTransport/' + MaDonVi;
+        $.ajax({
+            url: url,
+            method: 'DELETE',
+            contentType: 'json',
+            dataType: 'json',
+            success: function (response) {
+                alert("Xoá thông tin đơn vị thành công");
+                ListTransport(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            },
+            error: function () {
+                alert("Xoá thông tin đơn vị không thành công");
+            }
+        });
+    }
+    //CLick vào mỗi dòng dữ liệu
+    $(document).on('click', '#allProduct tr', function () {
+        $(this).siblings().removeClass('row-selected');
+        $(this).addClass('row-selected');
+    })
+    $('html').click(function () {
+        $('#allProduct tr').siblings().removeClass('row-selected');
+    })
+</script>

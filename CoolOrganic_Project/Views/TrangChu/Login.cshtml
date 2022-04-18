@@ -1,0 +1,128 @@
+﻿@model CoolOrganic_Project.Models.Entity.tblCustomer
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<main>
+    <div class="container">
+        <div class="row">
+            <section class="title_container">
+                <div class="text-center">
+                    <p class="title_page">Đăng nhập tài khoản</p>
+                </div>
+                <div class="title_content">
+                    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="../index.html">Trang chủ</a>
+                            </li>
+
+                            <li class="breadcrumb-item active"
+                                aria-current="page"
+                                style="color: rgb(170, 196, 97)">
+                                Đăng nhập tài khoản
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </section>
+
+            <section class="intro_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mx-auto mb-5">
+                            <div class="page_login mt-0 d-block w-100">
+                                <div id="login">
+
+                                    <div class="form-signup">
+                                        @using (Html.BeginForm("Login", "TrangChu", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @*@Html.ValidationSummary(true)*@
+                                            <div class="row">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                    <h1 class="title_center_page">
+                                                        <span>Đăng nhập tài khoản</span>
+                                                    </h1>
+                                                    <div class="social-login text-center mb-4">
+                                                        <a href="javascript:void(0)"
+                                                           class="social-login--facebook"
+                                                           onclick="loginFacebook()">
+                                                            <img width="129px"
+                                                                 height="37px"
+                                                                 alt="facebook-login-button"
+                                                                 src="//bizweb.dktcdn.net/assets/admin/images/login/fb-btn.svg" />
+                                                        </a>
+                                                        <a href="javascript:void(0)"
+                                                           class="social-login--google"
+                                                           onclick="loginGoogle()">
+                                                            <img width="129px"
+                                                                 height="37px"
+                                                                 alt="google-login-button"
+                                                                 src="//bizweb.dktcdn.net/assets/admin/images/login/gp-btn.svg" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="content_all">
+                                                        <fieldset class="form-group mb-2">
+                                                            <span>Email:</span><br />
+                                                            @Html.TextBoxFor(model => model.Email)
+                                                            @Html.ValidationMessageFor(model => model.Email)
+                                                        </fieldset>
+                                                        <fieldset class="form-group mb-2">
+                                                            <span>Mật khẩu:</span><br />
+                                                            @Html.PasswordFor(model => model.Pass)
+                                                            @Html.ValidationMessageFor(model => model.Pass)
+                                                            @*@if (ViewBag.Message != null)
+                                                                {
+                                                                    @ViewBag.Message
+                                                                }*@
+                                                            @*@ViewBag.Message*@
+                                                            @if (ViewBag.error != null)
+                                                            {
+                                                                <span>@ViewBag.error</span>
+                                                            }
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn_style">
+                                                <button type="summit"
+                                                        value="Đăng nhập"
+                                                        class="btn btn-primary">
+                                                    Đăng nhập
+                                                </button>
+                                            </div>
+                                        }
+
+                                        <span class="have_ac">
+                                            Bạn chưa có tài khoản, vui lòng đăng ký
+                                            <a href="@Url.Action("Register", "TrangChu")">tại đây</a>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div id="recover-password" class="rcv d-block">
+                                    <div class="form-signup mt-0">
+                                        <div class="recovers">
+                                            <form accept-charset="utf-8"
+                                                  action="/account/recover"
+                                                  id="recover_customer_password"
+                                                  method="post">
+                                                <input name="FormType"
+                                                       type="hidden"
+                                                       value="recover_customer_password" />
+                                                <input name="utf8" type="hidden" value="true" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+

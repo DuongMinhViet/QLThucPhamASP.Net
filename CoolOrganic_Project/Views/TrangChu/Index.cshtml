@@ -1,0 +1,713 @@
+﻿@model IEnumerable<CoolOrganic_Project.Models.Entity.tblProductCategory>
+@{
+    ViewBag.Title = "RauCu";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+@{
+    var format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+<!-------------------------------------SECTION-BANNER------------------------------------>
+<section class="section-banner">
+    <img src="~/Content/images/banner.jpg" alt="" />
+</section>
+
+<!-------------------------------------SECTION-DESCRIPTION------------------------------------>
+<section class="section-description">
+    <div class="row">
+        <div class="banner_content col-12 col-sm-6 col-lg-3"
+             style="background-image: url(/Content/images/banner1.png)">
+            <div class="col_content">
+                <div class="content_">
+                    <h3 class="banner-title">
+                        <a href="#" title="Rau quả tươi">Rau quả tươi</a>
+                    </h3>
+                    <span>
+                        Chung tôi cam ket 100 các sản phẩm có nguồn gốc xuất xứ rõ
+                        ràng, sạch, an toàn và dam bao chất lượng ngon nhất giao đến
+                        tận tay người tiêu dùng, để san sẻ sự vất vả của các mẹ, các
+                        chị
+                    </span>
+                    <a href="#" class="btn btn-primary btn_xem" title="Rau quả tươi">Xem ngay</a>
+                </div>
+            </div>
+        </div>
+        <div class="banner_content col-12 col-sm-6 col-lg-3"
+             style="background-image: url(/Content/images/banner2.png)">
+            <div class="col_content">
+                <div class="content_">
+                    <h3 class="banner-title">
+                        <a href="#" title="Sinh tố hoa quả">Sinh tố hoa quả</a>
+                    </h3>
+                    <span>
+                        Chung tôi cam ket 100 các sản phẩm có nguồn gốc xuất xứ rõ
+                        ràng, sạch, an toàn và dam bao chất lượng ngon nhất giao đến
+                        tận tay người tiêu dùng, để san sẻ sự vất vả của các mẹ, các
+                        chị
+                    </span>
+                    <a href="#"
+                       class="btn btn-primary btn_xem"
+                       title="Sinh tố hoa quả">Xem ngay</a>
+                </div>
+            </div>
+        </div>
+        <div class="banner_content col-12 col-sm-6 col-lg-3"
+             style="background-image: url(/Content/images/banner3.png)">
+            <div class="col_content">
+                <div class="content_">
+                    <h3 class="banner-title">
+                        <a href="#" title="Thực phẩm tươi">Thực phẩm tươi</a>
+                    </h3>
+                    <span>
+                        Chung tôi cam ket 100 các sản phẩm có nguồn gốc xuất xứ rõ
+                        ràng, sạch, an toàn và dam bao chất lượng ngon nhất giao đến
+                        tận tay người tiêu dùng, để san sẻ sự vất vả của các mẹ, các
+                        chị
+                    </span>
+                    <a href="#"
+                       class="btn btn-primary btn_xem"
+                       title="Thực phẩm tươi">Xem ngay</a>
+                </div>
+            </div>
+        </div>
+        <div class="banner_content col-12 col-sm-6 col-lg-3"
+             style="background-image: url(/Content/images/banner4.png)">
+            <div class="col_content">
+                <div class="content_">
+                    <h3 class="banner-title">
+                        <a href="#" title="Hoa quả tươi mát">Hoa quả tươi mát</a>
+                    </h3>
+                    <span>
+                        Chung tôi cam ket 100 các sản phẩm có nguồn gốc xuất xứ rõ
+                        ràng, sạch, an toàn và dam bao chất lượng ngon nhất giao đến
+                        tận tay người tiêu dùng, để san sẻ sự vất vả của các mẹ, các
+                        chị
+                    </span>
+                    <a href="#"
+                       class="btn btn-primary btn_xem"
+                       title="Hoa quả tươi mát">Xem ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-------------------------------------SECTION_ABOUT-US------------------------------------>
+<section class="section_about">
+    <div class="container">
+        <div class="row">
+            <div class="title_brand heading">
+                <h2 title="Về chúng tôi">
+                    <span class="text_gradient">Về chung tôi</span>
+                </h2>
+                <p>
+                    Hiện tại vùng nguyên liệu của chung tôi có thể cung cấp các thực
+                    tập tươi sạch với số lượng lớn vì đang vào vụ mùa thu hoạch nên
+                    chung tôi có thể cung ứng cho tất cả các đối tác xuất khẩu nông
+                    sản trên cả nước.
+                </p>
+            </div>
+            <div class="uti_content">
+                <div class="row owl-stage">
+                    <div class="col-12 col-lg-3 col-sm-6 owl-item">
+                        <div class="uti_body">
+                            <span class="icon">
+                                <img class="lazyload loaded"
+                                     src="~/Content/images/aboutus1.png"
+                                     alt="Trang trại hữu cơ" />
+                            </span>
+                            <div class="content">
+                                <span class="title">Trang trại hữu cơ</span>
+                                <span class="sum">
+                                    Cung cấp 100 thực phẩm sạch dam bao an toàn và ngon
+                                    nhất
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3 col-sm-6 owl-item">
+                        <div class="uti_body">
+                            <span class="icon">
+                                <img class="lazyload loaded"
+                                     src="~/Content/images/aboutus2.png"
+                                     alt="Thực phẩm sạch" />
+                            </span>
+                            <div class="content">
+                                <span class="title">Thực phẩm sạch</span>
+                                <span class="sum">
+                                    Cung cấp 100 thực phẩm sạch dam bao an toàn và ngon
+                                    nhất
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3 col-sm-6 owl-item">
+                        <div class="uti_body">
+                            <span class="icon">
+                                <img class="lazyload loaded"
+                                     src="~/Content/images/aboutus3.png"
+                                     alt="An toàn sinh học" />
+                            </span>
+                            <div class="content">
+                                <span class="title">An toàn sinh học</span>
+                                <span class="sum">
+                                    Cung cấp 100 thực phẩm sạch dam bao an toàn và ngon
+                                    nhất
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3 col-sm-6 owl-item">
+                        <div class="uti_body">
+                            <span class="icon">
+                                <img class="lazyload loaded"
+                                     src="~/Content/images/aboutus4.png"
+                                     alt="Đa dạng sinh học" />
+                            </span>
+                            <div class="content">
+                                <span class="title">Đa dạng sinh học</span>
+                                <span class="sum">
+                                    Cung cấp 100 thực phẩm sạch dam bao an toàn và ngon
+                                    nhất
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!------------------------------------SECTION_PRODUCTS---------------------------------- -->
+<section class="section-products">
+    <div class="container">
+        <div class="row">
+            <div class="title_brand">
+                <h2 class="title-head" title="Danh mục sản phẩm">
+                    <a href="#" class="text_gradient heading_product">Danh mục sản phẩm</a>
+                </h2>
+            </div>
+            <div>
+                <ul class="ul_link">
+                    @foreach (var s in Model)
+                    {
+                        <li class="li_tabs" id="@s.MaDanhMuc"><a class="head-tabs">@s.TenDanhMuc</a></li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+        <div>
+            <div class="content_products row Load_Product_Default">
+                @foreach (var s in ViewBag.product)
+                {
+                    <div class="col-6 col-lg-3 col-sm-6 ">
+                        <div class="item">
+                            <div class="product-box-h">
+                                <div class="product-thumbnail">
+                                    <a class="image_link d-flex justify-content-center align-item-center"
+                                       href=""
+                                       title="@s.TenSanPham">
+                                        <img src="~/Content/images/@s.Anh"
+                                             alt="@s.TenSanPham" />
+                                    </a>
+                                    <div class="product-action">
+                                        <form>
+                                            <div class="group_action">
+                                                <a href="/CartProduct/AddToCart/@s.MaSanPham"
+                                                   class="btn-buy btn-cart btn add_to_cart"
+                                                   title="Mua ngay">
+                                                </a>
+
+                                                <a title="Xem nhanh"
+                                                   href="#"
+                                                   class="xem_nhanh btn_view btn">
+                                                </a>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">
+                                        <a href="#" title="@s.TenSanPham"> @s.TenSanPham </a>
+                                    </h3>
+                                    <div class="product-hideoff">
+                                        <div class="product-hide">
+                                            <div class="price-box">
+                                                <div class="special-price">
+                                                    <span class="price product-price"> @String.Format(format, "{0:c0}", s.DonGiaban)  </span>
+                                                </div>
+
+                                                <div class="old-price">
+                                                    <span class="price product-price-old">
+                                                        @String.Format(format, "{0:c0}", s.DonGiaban)
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="content_products row Load_Product_ByID">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!------------------------------------SECTION_HOTLINE---------------------------------- -->
+<section class="section_hotline">
+    <div class="section_hotline-container">
+        <div class="parallax">
+            <div class="wrapper">
+                <div class="custom-center text-center">
+                    <div class="custom-center-body">
+                        <h2>Hotline</h2>
+
+                        <a href="tel:19006750">1900 6750</a>
+
+                        <p>
+                            Chung tôi cam ket 100 % các sản phẩm có nguồn gốc xuất xứ rõ
+                            ràng, sạch, an toàn và dam bao chất lượng ngon nhất.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!----------------------------------SECTION_BEST-SELLER---------------------------------- -->
+<section class="section_best-seller">
+    <div class="container">
+        <div class="row">
+            <div class="title_brand heading">
+                <h2 class="title-head" title="Danh mục sản phẩm">
+                    <a href="#" class="text_gradient heading_product">sản phẩm bán chạy</a>
+                </h2>
+            </div>
+
+            <div class="content_news row">
+                <div class="col-6 col-lg-3 col-sm-6">
+                    <div class="item">
+                        <div class="product-box-h">
+                            <div class="product-thumbnail">
+                                <a class="image_link d-flex justify-content-center align-item-center"
+                                   href="#"
+                                   title="Vải thiều">
+                                    <img src="~/Content/images/Vải thiều Thanh Hà.jpg"
+                                         alt="Vải Thiều Thanh Hà" />
+                                </a>
+                                <div class="product-action">
+                                    <form>
+                                        <div class="group_action">
+                                            <input type="hidden"
+                                                   name="variantId"
+                                                   value="23813709" />
+                                            <button class="btn-buy btn-cart btn btn-circle add_to_cart"
+                                                    title="Mua ngay"></button>
+
+                                            <a title="Xem nhanh"
+                                               href="#"
+                                               class="xem_nhanh btn-circle btn_view btn">
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">
+                                    <a href="#" title="Vải thiều"> Vải thiều Thanh Hà </a>
+                                </h3>
+
+                                <div class="product-hideoff">
+                                    <div class="product-hide">
+                                        <div class="price-box">
+                                            <div class="special-price">
+                                                <span class="price product-price"> 40.000₫ </span>
+                                            </div>
+
+                                            <div class="old-price">
+                                                <span class="price product-price-old">
+                                                    79.000₫
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 col-sm-6">
+                    <div class="item">
+                        <div class="product-box-h">
+                            <div class="product-thumbnail">
+                                <a class="image_link d-flex justify-content-center align-item-center"
+                                   href="#"
+                                   title="Vải thiều">
+                                    <img src="~/Content/images/Đào đỏ Mỹ.jpg"
+                                         alt="Đào đỏ Mỹ" />
+                                </a>
+                                <div class="product-action">
+                                    <form>
+                                        <div class="group_action">
+                                            <input type="hidden"
+                                                   name="variantId"
+                                                   value="23813709" />
+                                            <button class="btn-buy btn-cart btn btn-circle add_to_cart"
+                                                    title="Mua ngay"></button>
+
+                                            <a title="Xem nhanh"
+                                               href="#"
+                                               class="xem_nhanh btn-circle btn_view btn">
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">
+                                    <a href="#" title="Vải thiều"> Đào đỏ Mỹ </a>
+                                </h3>
+
+                                <div class="product-hideoff">
+                                    <div class="product-hide">
+                                        <div class="price-box">
+                                            <div class="special-price">
+                                                <span class="price product-price"> 31.000₫ </span>
+                                            </div>
+
+                                            <div class="old-price">
+                                                <span class="price product-price-old">
+                                                    39.000₫
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 col-sm-6">
+                    <div class="item">
+                        <div class="product-box-h">
+                            <div class="product-thumbnail">
+                                <a class="image_link d-flex justify-content-center align-item-center"
+                                   href="#"
+                                   title="Vải thiều">
+                                    <img src="~/Content/images/Dâu tây Đà Lạt.jpg"
+                                         alt="Dâu tây Đà Lạt" />
+                                </a>
+                                <div class="product-action">
+                                    <form>
+                                        <div class="group_action">
+                                            <input type="hidden"
+                                                   name="variantId"
+                                                   value="23813709" />
+                                            <button class="btn-buy btn-cart btn btn-circle add_to_cart"
+                                                    title="Mua ngay"></button>
+
+                                            <a title="Xem nhanh"
+                                               href="#"
+                                               class="xem_nhanh btn-circle btn_view btn">
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">
+                                    <a href="#" title="Vải thiều"> Dâu tây Đà Lạt </a>
+                                </h3>
+
+                                <div class="product-hideoff">
+                                    <div class="product-hide">
+                                        <div class="price-box">
+                                            <div class="special-price">
+                                                <span class="price product-price"> 350.000₫ </span>
+                                            </div>
+
+                                            <div class="old-price">
+                                                <span class="price product-price-old">
+                                                    480.000₫
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 col-sm-6">
+                    <div class="item">
+                        <div class="product-box-h">
+                            <div class="product-thumbnail">
+                                <a class="image_link d-flex justify-content-center align-item-center"
+                                   href="#"
+                                   title="Vải thiều">
+                                    <img src="~/Content/images/Táo xanh Mỹ.jpg"
+                                         alt="Táo xanh Mỹ" />
+                                </a>
+                                <div class="product-action">
+                                    <form>
+                                        <div class="group_action">
+                                            <input type="hidden"
+                                                   name="variantId"
+                                                   value="23813709" />
+                                            <button class="btn-buy btn-cart btn btn-circle add_to_cart"
+                                                    title="Mua ngay"></button>
+
+                                            <a title="Xem nhanh"
+                                               href="#"
+                                               class="xem_nhanh btn-circle btn_view btn">
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">
+                                    <a href="#" title="Vải thiều"> Táo xanh Mỹ </a>
+                                </h3>
+
+                                <div class="product-hideoff">
+                                    <div class="product-hide">
+                                        <div class="price-box">
+                                            <div class="special-price">
+                                                <span class="price product-price"> 160.000₫ </span>
+                                            </div>
+
+                                            <div class="old-price">
+                                                <span class="price product-price-old">
+                                                    220.000₫
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!------------------------------------SECTION_NEWS---------------------------------- -->
+<section class="section_news">
+    <div class="container">
+        <div class="row">
+            <div class="title_brand heading">
+                <h2 class="title-head" title="Danh mục sản phẩm">
+                    <a href="#" class="text_gradient heading_product">tin tức mới nhất</a>
+                </h2>
+            </div>
+
+            <div class="content_news row">
+                <div class="col-12 col-sm-6 col-lg-4 content_item">
+                    <div class="blog_index">
+                        <div class="myblog">
+                            <div class="image-blog-left text-center">
+                                <a class="image-blog"
+                                   href="#"
+                                   title="Rau xanh tăng giá mạnh vì trời mưa, người dân nội thành lao đao">
+                                    <img src="~/Content/images/news1.jpg"
+                                         alt="Rau xanh tăng giá mạnh vì trời mưa, người dân nội thành lao đao" />
+                                </a>
+
+                                <div class="date_blog">
+                                    <i class="far fa-calendar"></i><b class="color_main">27/03/2019</b> &nbsp; Đăng bởi:
+                                    <b class="color_main">Cool Team</b>
+                                </div>
+                            </div>
+                            <div class="content_blog">
+                                <div class="content_right">
+                                    <h3>
+                                        <a href="#"
+                                           title="Rau xanh tăng giá mạnh vì trời mưa, người dân nội thành lao đao">
+                                            Rau xanh tăng giá mạnh vì trời mưa, người dân nội
+                                            thành lao đao
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="summary_item_blog">
+                                    <p>
+                                        Khoảng gần một tuần nay, do ảnh hưởng của những cơn
+                                        mưa lớn kéo dài liên tiếp nên...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4 content_item">
+                    <div class="blog_index">
+                        <div class="myblog">
+                            <div class="image-blog-left text-center">
+                                <a class="image-blog"
+                                   href="#"
+                                   title="Nhập khẩu rau quả vượt mốc 1 tỷ USD, Thái Lan chiếm 60% thị phần">
+                                    <img src="~/Content/images/news2.jpg"
+                                         alt="Nhập khẩu rau quả vượt mốc 1 tỷ USD, Thái Lan chiếm 60% thị phần" />
+                                </a>
+
+                                <div class="date_blog">
+                                    <i class="far fa-calendar"></i><b class="color_main">27/03/2019</b> &nbsp; Đăng bởi:
+                                    <b class="color_main">Cool Team</b>
+                                </div>
+                            </div>
+                            <div class="content_blog">
+                                <div class="content_right">
+                                    <h3>
+                                        <a href="#"
+                                           title="Nhập khẩu rau quả vượt mốc 1 tỷ USD, Thái Lan chiếm 60% thị phần">
+                                            Nhập khẩu rau quả vượt mốc 1 tỷ USD, Thái Lan chiếm
+                                            60% thị phần
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="summary_item_blog">
+                                    <p>
+                                        Theo báo cáo từ Bộ NN&amp;PTNT, giá trị xuất khẩu hàng
+                                        rau quả tháng 9 năm 2017 ước đ...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4 content_item">
+                    <div class="blog_index">
+                        <div class="myblog">
+                            <div class="image-blog-left text-center">
+                                <a class="image-blog"
+                                   href="#"
+                                   title="Bí quyết bảo quản nho đen trong tủ lạnh tươi lâu hơn">
+                                    <img src="~/Content/images/news3.jpg"
+                                         alt="Bí quyết bảo quản nho đen trong tủ lạnh tươi lâu hơn" />
+                                </a>
+
+                                <div class="date_blog">
+                                    <i class="far fa-calendar"></i><b class="color_main">27/03/2019</b> &nbsp; Đăng bởi:
+                                    <b class="color_main">Cool Team</b>
+                                </div>
+                            </div>
+                            <div class="content_blog">
+                                <div class="content_right">
+                                    <h3>
+                                        <a href="#"
+                                           title="Bí quyết bảo quản nho đen trong tủ lạnh tươi lâu hơn">
+                                            Bí quyết bảo quản nho đen trong tủ lạnh tươi lâu
+                                            hơn
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="summary_item_blog">
+                                    <p>
+                                        Bí quyết lựa chọn và bảo quản nho tươi – Nho rất ngon
+                                        và tốt cho sức khỏe, tuy nh...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!------------------------------------SECTION_BRANDS---------------------------------- -->
+<section class="section_top-brand">
+    <div class="container">
+        <div class="row">
+            <div class="title_brand heading">
+                <h2 title="Top thương hiệu">
+                    <span class="text_gradient">top thương hiệu</span>
+                </h2>
+            </div>
+
+            <div class="content_top_brand">
+                <div class="row">
+                    <div class="item_brand col-6 col-lg-2 col-md-4 col-sm-6">
+                        <div class="item">
+                            <a class="img_" href="#">
+                                <img src="~/Content/images/brand_company.png"
+                                     alt="Brand Company" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item_brand col-6 col-lg-2 col-md-4 col-sm-6">
+                        <div class="item">
+                            <a class="img_" href="#">
+                                <img src="~/Content/images/brand_vintage.png"
+                                     alt="Brand Vintage" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item_brand col-6 col-lg-2 col-md-4 col-sm-6">
+                        <div class="item">
+                            <a class="img_" href="#">
+                                <img src="~/Content/images/brand_organic-cafe.png"
+                                     alt="Brand Organic Cafe" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item_brand col-6 col-lg-2 col-md-4 col-sm-6">
+                        <div class="item">
+                            <a class="img_" href="#">
+                                <img src="~/Content/images/brand_organic.png"
+                                     alt="Brand Organic" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item_brand col-6 col-lg-2 col-md-4 col-sm-6">
+                        <div class="item">
+                            <a class="img_" href="#">
+                                <img src="~/Content/images/brand_retro.png" alt="Brand Retro" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item_brand col-6 col-lg-2 col-md-4 col-sm-6">
+                        <div class="item">
+                            <a class="img_" href="#">
+                                <img src="~/Content/images/brand_company.png"
+                                     alt="Brand Company" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $('.ul_link li').click(function (event) {
+        var id = $(this).attr('id');
+        $('div.Load_Product_Default').hide();
+        $.ajax({
+            url: 'RenderProdcutByID',
+            data: { CatId: id },
+            success: function (response) {
+                $('div.Load_Product_ByID').html(response);
+            }
+        })
+    })
+</script>

@@ -1,0 +1,112 @@
+﻿@model CoolOrganic_Project.Models.Entity.tblCustomer
+
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<main>
+    <div class="container">
+        <div class="row">
+            <section class="title_container">
+                <div class="text-center">
+                    <p class="title_page">Đăng ký tài khoản</p>
+                </div>
+                <div class="title_content">
+                    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="../index.html">Trang chủ</a>
+                            </li>
+
+                            <li class="breadcrumb-item active"
+                                aria-current="page"
+                                style="color: rgb(170, 196, 97)">
+                                Đăng ký tài khoản
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </section>
+
+            <section class="intro_container">
+                @using (Html.BeginForm("Register", "TrangChu", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mx-auto mb-5">
+                                <div class="page_login mt-0 d-block w-100">
+                                    <div id="login">
+                                        <div class="form-signup">
+                                            <div class="row">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                    <h1 class="title_center_page">
+                                                        <span>Đăng ký tài khoản</span>
+                                                    </h1>
+                                                    <div class="social-login text-center mb-4">
+                                                        <a href="javascript:void(0)"
+                                                           class="social-login--facebook"
+                                                           onclick="loginFacebook()">
+                                                            <img width="129px"
+                                                                 height="37px"
+                                                                 alt="facebook-login-button"
+                                                                 src="//bizweb.dktcdn.net/assets/admin/images/login/fb-btn.svg" />
+                                                        </a>
+                                                        <a href="javascript:void(0)"
+                                                           class="social-login--google"
+                                                           onclick="loginGoogle()">
+                                                            <img width="129px"
+                                                                 height="37px"
+                                                                 alt="google-login-button"
+                                                                 src="//bizweb.dktcdn.net/assets/admin/images/login/gp-btn.svg" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="content_all">
+                                                        <fieldset class="form-group mb-2">
+                                                            <span>Họ và tên:</span><br />
+                                                            @Html.TextBoxFor(model => model.TenKhachHang)
+                                                            <br />@Html.ValidationMessageFor(model => model.TenKhachHang)
+                                                        </fieldset>
+                                                        <fieldset class="form-group mb-2">
+                                                            <span>Số điện thoại:</span><br />
+                                                            @Html.TextBoxFor(model => model.SoDienThoai)
+                                                            <br />@Html.ValidationMessageFor(model => model.SoDienThoai)
+                                                        </fieldset>
+                                                        <fieldset class="form-group mb-2">
+                                                            <span>Địa chỉ:</span><br />
+                                                            @Html.TextBoxFor(model => model.DiaChi)
+                                                            <br />@Html.ValidationMessageFor(model => model.DiaChi)
+                                                        </fieldset>
+                                                        <fieldset class="form-group mb-2">
+                                                            <span>Email:</span><br />
+                                                            @Html.TextBoxFor(model => model.Email)
+                                                            <br />@Html.ValidationMessageFor(model => model.Email)
+                                                            @ViewBag.Message
+                                                        </fieldset>
+                                                        <fieldset class="form-group mb-2">
+                                                            <span>Mật khẩu:</span><br />
+                                                            @Html.PasswordFor(model => model.Pass)
+                                                            <br />@Html.ValidationMessageFor(model => model.Pass)
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn_style">
+                                                <button type="summit"
+                                                        value="submit"
+                                                        class="btn btn-primary">
+                                                    Đăng ký
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</main>

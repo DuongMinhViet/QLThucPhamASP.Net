@@ -1,0 +1,114 @@
+﻿<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/TrangChu/Index">
+                <img src="~/Content/images/logo.png" alt="" />
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fas fa-bars"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        @Html.ActionLink("Trang chủ", "Index", "TrangChu", null, new { @class = "nav-link active" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Giới thiệu", "Index", "GioiThieu", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="navbarDropdownMenuLink"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Sản phẩm
+                        </a>
+                        <ul class="dropdown-menu"
+                            aria-labelledby="navbarDropdownMenuLink">
+                            <li><a>@Html.ActionLink("Rau củ", "getRauCu", "Products", null, new { @class = "dropdown-item" })</a></li>
+                            <li><a>@Html.ActionLink("Hoa quả", "getHoaQua", "Products", null, new { @class = "dropdown-item" })</a></li>
+                            <li><a>@Html.ActionLink("Hải sản", "getHaiSan", "Products", null, new { @class = "dropdown-item" })</a></li>
+                            <li><a>@Html.ActionLink("Các loại hạt", "getCacLoaiHat", "Products", null, new { @class = "dropdown-item" })</a></li>
+                            <li><a>@Html.ActionLink("Thực phẩm tươi sống", "getThucPhamTuoiSong", "Products", null, new { @class = "dropdown-item" })</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tin tức</a>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Liên hệ", "Index", "LienHe", null, new { @class = "nav-link" })
+                    </li>
+                </ul>
+                <div class="navbar-right ms-auto mb-2 mb-lg-0">
+                    <!-- search input -->
+                    <div class="searchion">
+                        <span><i class="fas fa-search"></i></span>
+                        <div class="searchmini">
+                            <form action="/search" method="get" role="search">
+                                <input type="text"
+                                       name="query"
+                                       value=""
+                                       autocomplete="off"
+                                       placeholder="Tìm kiếm..." />
+                                <button type="submit">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- User -->
+                    <div class="user">
+                        @*@if (Session["MaKhachHang"] != null)
+                            {
+                               <li>Xin chao: @Session["TenKhachHang"]</li>
+                               <li>Dang xuat<a href="~/Views/TrangChu/Index.cshtml"></a></li>
+                            }
+                            else
+                            {
+                              <li>@Html.ActionLink("Đăng nhập", "Index", "Login")</li>
+                              <li>@Html.ActionLink("Đăng ký", "Index", "Register")</li>
+                            }*@
+                        @if (Session["MaKhachHang"] != null)
+                        {
+                            <span>@Session["TenKhachHang"]</span>
+                            <a href="@Url.Action("Logout","TrangChu")">Đăng xuất</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login", "TrangChu")">Đăng nhập</a>
+                            <a href="@Url.Action("Register", "TrangChu")">Đăng ký</a>
+                            @*@Html.ActionLink("Đăng nhập", "Login", "TrangChu")
+                                @Html.ActionLink("Đăng ký", "Register", "TrangChu")*@
+                        }
+                        @*<span><i class="fas fa-user-plus"></i></span>
+                            <div class="form-user">
+
+                            </div>*@
+                    </div>
+
+                    <!-- Cart Shopping -->
+                    <div class="cart-shopping">
+                        <div class="heading-cart">
+                            <a href="/CartProduct/ShowToCart" title="Giỏ hàng">
+                                <div>
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <span>@Html.Action("BagCart", "CartProduct")</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

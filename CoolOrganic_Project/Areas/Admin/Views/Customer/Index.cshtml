@@ -1,0 +1,446 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="content-header">
+    </div>
+    <div class="content-body">
+        <div class="page-title">
+            <h1>Danh sách khách hàng</h1>
+        </div>
+        <div class="grid-content">
+            <div class="toolbar">
+                <div class="Control-Button">
+                    <button class="btnAdd"><i class="icon icon-add"></i>Thêm mới</button>
+                    <button class="btnEdit"><i class="icon icon-edit"></i>Sửa</button>
+                    <button class="btnDelete"><i class="icon icon-delete"></i>Xoá</button>
+                </div>
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control text-search" placeholder="Tìm kiếm" />
+                    </div>
+                    <button type="button" class="btn btn-primary btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="grid">
+                <table id="tblProduct" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã khách hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Pass</th>
+                            <th>Địa chỉ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allProduct"></tbody>
+                </table>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination" style="margin:0" id="PhanTrang">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="dialog"></div>
+<div class="dialog-product">
+    <div class="dialog-product-title">
+        <div class="title-text">
+            Thông tin khách hàng
+        </div>
+        <div class="title-close-button"></div>
+    </div>
+    <div class="dialog-product-body">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Mã khách hàng: </td>
+                    <td><input type="text" id="txtMaKhachHang" name="MaKhachHang" placeholder="Mã khách hàng" /></td>
+                </tr>
+                <tr>
+                    <td>Tên khách hàng: </td>
+                    <td><input type="text" id="txtTenKhachHang" name="TenKhachHang" placeholder="Tên khách hàng" /></td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại: </td>
+                    <td><input type="text" id="txtSoDienThoai" name="SoDienThoai" placeholder="Số điện thoại" /></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><input type="text" id="txtEmail" name="Email" placeholder="Email" /></td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td>
+                        <input type="password" id="txtPass" name="Passw" placeholder="Mật khẩu" />
+                        <span toggle="#txtPass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Địa chỉ: </td>
+                    <td><input type="text" id="txtDiaChi" name="DiaChi" placeholder="Địa chỉ" /></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="dialog-product-button add-button" style="display:none">
+        <button class="btnSave Save-Add btn-primary" onclick="InsertProduct();">Thêm mới</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+    <div class="dialog-product-button edit-button" style="display:none">
+        <button class="btnSave Save-Edit btn-primary" onclick="EditProduct();">Sửa</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+    <div class="dialog-product-button delete-button" style="display:none">
+        <button class="btnSave Save-Delete btn-primary" onclick="DeleteProduct();">Xoá</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+</div>
+
+<script>
+    var Page = 1;
+    var numberPage = 7;
+    $(document).ready(function () {
+        ButtonClickEvent();
+        ListCustomer(Page);
+    })
+    function ButtonClickEvent() {
+        $('#PhanTrang').on('click', 'li', function (e) {
+            e.preventDefault();
+            Page = $(this).text();
+            ListCustomer(Page);
+        })
+        $('.btnAdd').click(function () {
+            $('.dialog-product input').val(null);
+            $('.dialog').show();
+            $('.dialog-product').show();
+            $('.add-button').show();
+            $('.edit-button').hide();
+            $('.delete-button').hide();
+            $('.dialog-product-body input').removeAttr('disabled');
+            $('#txtMaKhachHang').attr('disabled', 'disabled');
+            $.ajax({
+                url: 'https://localhost:44397/GetLastCustomer',
+                method: 'GET',
+                success: function (response) {
+                    var MaKhachHang = response + 1;
+                    $('#txtMaKhachHang').val(MaKhachHang);
+                }
+            })
+        });
+        $('.btnEdit').click(function () {
+            //Lấy dữ liệu của sách đã chọn tương ứng
+            var trSelected = $('#allProduct tr.row-selected');
+            if (trSelected.length > 0) {
+                //hiện thị form tương ứng
+                $('.dialog-product-body input').removeAttr('disabled');
+                $('.dialog').show();
+                $('.dialog-product').show();
+                $('.edit-button').show();
+                $('.add-button').hide();
+                $('.delete-button').hide();
+                var MaKhachHang = $(trSelected).children()[0].textContent;
+                $.ajax({
+                    url: 'https://localhost:44397/GetCustomer/' + MaKhachHang,
+                    method: 'GET'
+                }).done(function (response) {
+                    if (!response) {
+                        alert("Không có khách hàng có mã là: " + MaKhachHang);
+                    }
+                    else {
+                        //binding các thông tin của sản phẩm lên fom
+                        $('#txtMaKhachHang').val(response.MaKhachHang);
+                        $('#txtMaKhachHang').attr('disabled', 'true');
+                        $('#txtTenKhachHang').val(response.TenKhachHang);
+                        $('#txtSoDienThoai').val(response.SoDienThoai);
+                        $('#txtEmail').val(response.Email);
+                        $('#txtPass').val(response.Pass);
+                    }
+                }).fail(function (response) {
+
+                })
+            }
+            else {
+                alert('Bạn phải chọn khách hàng cần chỉnh sửa');
+            }
+        });
+        $('.btnDelete').click(function () {
+            //Lấy dữ liệu ở hàng tương ứng
+            var trSelected = $('#allProduct tr.row-selected');
+            if (trSelected.length > 0) {
+                $('.dialog').show();
+                $('.dialog-product').show();
+                $('.edit-button').hide();
+                $('.add-button').hide();
+                $('.delete-button').show();
+                var MaKhachHang = $(trSelected).children()[0].textContent;
+                $.ajax({
+                    url: 'https://localhost:44397/GetCustomer/' + MaKhachHang,
+                    method: 'GET'
+                }).done(function (response) {
+                    if (!response) {
+                        alert("Không có khách hàng có mã là: " + MaKhachHang);
+                    }
+                    else {
+                        //binding các thông tin của sản phẩm lên fom
+                        $('#txtMaKhachHang').val(response.MaKhachHang);
+                        $('#txtTenKhachHang').val(response.TenKhachHang);
+                        $('#txtSoDienThoai').val(response.SoDienThoai);
+                        $('#txtEmail').val(response.Email);
+                        $('#txtPass').val(response.Pass);
+                        $('.dialog-product-body input').attr('disabled', 'true');
+                    }
+                }).fail(function (response) {
+
+                })
+            }
+            else {
+                alert('Bạn phải chọn khách hàng cần xoá');
+            }
+        });
+        $('.btnCancel').click(function () {
+            $('.dialog').hide();
+            $('.dialog-product').hide();
+        });
+        $('.title-close-button').click(function () {
+            $('.dialog').hide();
+            $('.dialog-product').hide();
+        })
+    }
+    function ListCustomer(Page) {
+        var url = 'https://localhost:44397/ListCustomer/' + Page;
+        $.ajax({
+            url: url,
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+
+            },
+            success: function (response) {
+                $('allProduct').empty();
+                const len = response.length;
+                console.log(response);
+                let table = '';
+                for (var i = 0; i < len; ++i) {
+                    table = table + '<tr>';
+                    table = table + '<td>' + response[i].MaKhachHang + '</td>';
+                    table = table + '<td>' + response[i].TenKhachHang + '</td>';
+                    table = table + '<td>' + response[i].SoDienThoai + '</td>';
+                    table = table + '<td>' + response[i].Email + '</td>';
+                    table = table + '<td> <input type="password" style="border:none;" disabled value="' + response[i].Pass + '"></td>';
+                    table = table + '<td>' + response[i].DiaChi + '</td>';
+                    table = table + '</tr>';
+                }
+                document.getElementById('allProduct').innerHTML = table;
+            },
+            fail: function (response) { }
+        });
+        let li = ' ';
+        for (i = 1; i <= numberPage; i++) {
+            li = li + '<li><a href="#">' + i + '</a></li>'
+        }
+        document.getElementById('PhanTrang').innerHTML = li;
+    }
+    function InsertProduct() {
+        //Validate dữ liệu
+        const number = /^\d+$/;
+        var MaKhachHang = $('#txtMaKhachHang').val();
+        var TenKhachHang = $('#txtTenKhachHang').val();
+        var SoDienThoai = $('#txtSoDienThoai').val();
+        var Email = $('#txtEmail').val();;
+        var Pass = $('#txtPass').val();
+        var DiaChi = $('#txtDiaChi').val();
+        if (!TenKhachHang) {
+            $('#txtTenKhachHang').addClass('required-error');
+            $('#txtTenKhachHang').focus();
+            $('#txtTenKhachHang').attr("placeholder", "Bạn phải nhập tên khách hàng");
+            return;
+        }
+        if (!DiaChi) {
+            $('#txtDiaChi').addClass('required-error');
+            $('#txtDiaChi').focus();
+            $('#txtDiaChi').attr("placeholder", "Bạn phải nhập địa chỉ khách hàng");
+            return;
+        }
+        if (number.test(SoDienThoai) == false) {
+            $('#txtSoDienThoai').addClass('required-error');
+            $('#txtSoDienThoai').focus();
+            $('#txtSoDienThoai').attr("title", "Bạn phải nhập số điện thoại");
+            return;
+        }
+        if (/^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email) == false) {
+            $('#txtEmail').addClass('required-error');
+            $('#txtEmail').focus();
+            $('#txtEmail').attr("title", "Bạn phải nhập email");
+            return;
+        }
+        var url = 'https://localhost:44397/api/manage?MaKhachHang= ' + MaKhachHang +
+            '&TenKhachHang=' + TenKhachHang +
+            '&SoDienThoai=' + SoDienThoai +
+            '&Email=' + Email +
+            '&Pass=' + Pass +
+            '&DiaChi=' + DiaChi;
+        $.ajax({
+            url: url,
+            method: 'POST',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+                alert("Thêm mới không thành công");
+            },
+            success: function (reponse) {
+                alert("Thêm mới thành công");
+                ListCustomer(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            }
+        });
+    }
+    function EditProduct() {
+        //CHỉnh sửa dữ liệu trên form
+        //Validate dữ liệu
+        const number = /^\d+$/;
+        var MaKhachHang = $('#txtMaKhachHang').val();
+        var TenKhachHang = $('#txtTenKhachHang').val();
+        var SoDienThoai = $('#txtSoDienThoai').val();
+        var Email = $('#txtEmail').val();;
+        var Pass = $('#txtPass').val();
+        var DiaChi = $('#txtDiaChi').val();
+        if (!TenKhachHang) {
+            $('#txtTenKhachHang').addClass('required-error');
+            $('#txtTenKhachHang').focus();
+            $('#txtTenKhachHang').attr("placeholder", "Bạn phải nhập tên khách hàng");
+            return;
+        }
+        if (!DiaChi) {
+            $('#txtDiaChi').addClass('required-error');
+            $('#txtDiaChi').focus();
+            $('#txtDiaChi').attr("placeholder", "Bạn phải nhập địa chỉ khách hàng");
+            return;
+        }
+        if (number.test(SoDienThoai) == false) {
+            $('#txtSoDienThoai').addClass('required-error');
+            $('#txtSoDienThoai').focus();
+            $('#txtSoDienThoai').attr("title", "Bạn phải nhập số điện thoại");
+            return;
+        }
+        if (/^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email) == false) {
+            $('#txtEmail').addClass('required-error');
+            $('#txtEmail').focus();
+            $('#txtEmail').attr("title", "Bạn phải nhập email");
+            return;
+        }
+        //Thực hiện lưu dữ liệu
+        var url = 'https://localhost:44397/api/manage?MaKhachHang=' + MaKhachHang +
+            '&TenKhachHang=' + TenKhachHang +
+            '&SoDienThoai=' + SoDienThoai +
+            '&Email=' + Email +
+            '&Pass=' + Pass +
+            '&DiaChi=' + DiaChi;
+        $.ajax({
+            url: url,
+            method: 'PUT',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+                alert("Sửa thông tin khách hàng không thành công");
+            },
+            success: function (response) {
+                alert("Sửa thông tin khách hàng thành công");
+                ListCustomer(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            }
+        });
+    }
+    function DeleteProduct() {
+        //Lấy ra mã sách đang được chọn
+        var MaKhachHang = $('#txtMaKhachHang').val();
+        var url = 'https://localhost:44397/DeleteCustomer/' + MaKhachHang;
+        $.ajax({
+            url: url,
+            method: 'DELETE',
+            contentType: 'json',
+            dataType: 'json',
+            success: function (response) {
+                alert("Xoá thông tin khách hàng thành công");
+                ListCustomer(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            },
+            error: function () {
+                alert("Xoá thông tin khách hàng không thành công");
+            }
+        });
+    }
+
+    //Click vào mỗi dòng dữ liệu
+    $(document).on('click', '#allProduct tr', function () {
+        $(this).siblings().removeClass('row-selected');
+        $(this).addClass('row-selected');
+    })
+    $('html').click(function () {
+        $('#allProduct tr').siblings().removeClass('row-selected');
+    })
+</script>
+<script>
+    //Search thông tin
+    $('.text-search').change(function () {
+        $('nav').removeAttr('style', 'display:none;');
+        ListCustomer(Page);
+    })
+    $('.btn-search').click(function () {
+        $('nav').attr('style', 'display:none;');
+        const trang = 1;
+        var text = $('.text-search').val();
+        var url = 'https://localhost:44397/SearchCustomer/' + text + '/' + trang;
+        $.ajax({
+            url: url,
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+            },
+            success: function (response) {
+                $('allProduct').empty();
+                const len = response.length;
+                console.log(response);
+                let table = '';
+                for (var i = 0; i < len; ++i) {
+                    table = table + '<tr>';
+                    table = table + '<td>' + response[i].MaKhachHang + '</td>';
+                    table = table + '<td>' + response[i].TenKhachHang + '</td>';
+                    table = table + '<td>' + response[i].SoDienThoai + '</td>';
+                    table = table + '<td>' + response[i].Email + '</td>';
+                    table = table + '<td type="password" value=">' + response[i].Pass + '"</td>';
+                    table = table + '</tr>';
+                }
+                document.getElementById('allProduct').innerHTML = table;
+            },
+            fail: function (response) { }
+        });
+    })
+
+    //Hiện mật khẩu
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>
+
+

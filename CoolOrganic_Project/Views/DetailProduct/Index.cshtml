@@ -1,0 +1,569 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+
+<main>
+    <div class="container">
+        <div class="row">
+            <section class="title_container">
+                <div class="text-center">
+                    <p class="title_page">Quả óc chó</p>
+                </div>
+                <div class="title_content">
+                    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">trang chu</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Các loại hạt</a>
+                            </li>
+                            <li class="breadcrumb-item active"
+                                aria-current="page"
+                                style="color: rgb(170, 196, 97)">
+                                Quả óc chó
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </section>
+
+            <section class="content_container">
+                <div class="details-product">
+                    <div class="row">
+                            <div class="product-detail-left col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="big-image">
+                                    <img class="checkurl img-fluid"
+                                         id="img_01"
+                                         src="~/Content/img/Ba chỉ bò Mỹ.jpg"
+                                         alt="" />
+                                </div>
+
+                                <div class="small-image">
+                                    <div>
+                                        <img src="../images/hatdieutrang_product.jpg" alt="" />
+                                    </div>
+                                    <div>
+                                        <img src="../images/hatdieukho_product.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="details-product col-12 col-sm-12 col-md-6 col-lg-6">
+                                <h1>abc</h1>
+                                <div>
+                                    <div class="group-status">
+                                        <span class="first_status">
+                                            Thương hiệu:
+                                            <span class="status_name">Đang cập nhật</span>
+                                        </span>
+                                        <span class="first_status status_2">
+                                            <span class="line_tt">|</span> Tình trạng:
+
+                                            <span class="status_name availabel"> Còn hàng </span>
+                                        </span>
+                                    </div>
+
+                                    <div class="price-box">
+                                        <span class="special-price">430.000₫</span>
+                                        <!-- Giá Khuyến mại -->
+                                        <span class="old-price">
+                                            <del> 45.000dd</del>
+                                        </span>
+                                        <!-- Giá gốc -->
+                                    </div>
+                                </div>
+
+                                <div class="product-summary mb-0">
+                                    <div>
+                                        <p>Nguồn gốc: UK</p>
+
+                                        <p>Khối lượng: 1kg</p>
+
+                                        <p style="text-align: justify">
+                                            Quả óc chó giúp bà bầu bổ sung các chất dinh dưỡng thiết
+                                            yếu nhất như Omega-3, Vitamin E, phốt pho và Axit Amin
+                                            L-Arginne.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="form-product col-sm-12">
+                                    <form id="add-to-cart-form" class="form-inline mb-0">
+                                        <div class="box-variant clearfix">
+                                            <input type="hidden"
+                                                   name="variantId"
+                                                   value="23813701" />
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form_product_content">
+                                                <div class="soluong show">
+                                                    <div class="label_sl">Số lượng:</div>
+                                                    <div class="input_number_product soluong1 show">
+                                                        <button class="btn_num num_1 button button_qty"
+                                                                type="button">
+                                                            -
+                                                        </button>
+                                                        <input type="text"
+                                                               id="qtym"
+                                                               name="quantity"
+                                                               value="1"
+                                                               maxlength="2"
+                                                               class="form-control prd_quantity" />
+                                                        <button class="btn_num num_2 button button_qty"
+                                                                type="button">
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="count_btn_style">
+                                                    <div class="button_actions clearfix">
+                                                        <button type="submit"
+                                                                class="btn btn_add_cart btn-cart add_to_cart btn_base">
+                                                            Thêm vào giỏ hàng
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="call_phone_buy">
+                                                    <div>
+                                                        <span>
+                                                            Gọi đặt mua:
+                                                            <a href="tel:19006750"> 19006750 </a> để nhanh
+                                                            chóng đặt hàng
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+
+            <section class="top_brand_product mt-5">
+                <div class="row">
+                    <div class="col-lg-12 col-xs-12">
+                        <a href="#" title="Banner sản phẩm">
+                            <img src="//bizweb.dktcdn.net/100/350/980/themes/802125/assets/bg_pro.jpg?1638757174469"
+                                 alt="Banner sản phẩm" />
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tabs_container">
+                <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12">
+                    <!-- Nav tabs -->
+                    <div class="tab_content d-none d-md-block">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="tab-item" role="presentation">
+                                <button class="tab-link active"
+                                        id="description-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#description"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="description"
+                                        aria-selected="true">
+                                    Mô tả sản phẩm
+                                </button>
+                            </li>
+                            <li class="tab-item" role="presentation">
+                                <button class="tab-link"
+                                        id="questions-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#questions"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="questions"
+                                        aria-selected="false">
+                                    Hỏi đáp về sản phẩm
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active"
+                                 id="description"
+                                 role="tabpanel"
+                                 aria-labelledby="description-tab">
+                                <div class="rte">
+                                    <p style="text-align: justify">
+                                        Quả óc chó giúp bà bầu bổ sung các chất dinh dưỡng thiết
+                                        yếu nhất như Omega-3, Vitamin E, phốt pho và Axit Amin
+                                        L-Arginne. Đặc biệt hàm lượng Omega-3 trong quả óc chó
+                                        lớn hơn 3 lần trong cá hồi, giúp thúc đẩy sự phát triển
+                                        đại não của thai nhi và trẻ nhỏ. Nếu các mẹ kiên trì ăn
+                                        quả óc chó trong suốt thời gian thai kỳ, em bé sinh ra
+                                        sẽ rất thông minh khỏe mạnh.&nbsp;
+                                    </p>
+
+                                    <p style="text-align: center">
+                                        <img src="../images/hatocho_product.jpg"
+                                             style="max-width: 100%; height: auto" />
+                                    </p>
+
+                                    <p style="text-align: justify">
+                                        <strong>1. Cách sử dụng quả óc chó</strong><br />
+                                        Dùng kìm kẹp quả óc chó, sauu do ăn phần nhân, phần vẩy
+                                        ở giữa bỏ, có thể dùng óc chó làm bánh, làm nhân sôcola,
+                                        ép lấy dầu, dùng với sữa tươi, ngon hơn khi bỏ óc chó
+                                        vào lò vi sóng với nhiệt độ 160 độ rồi lấy ra bóc ăn, sẽ
+                                        có vị thơm và bùi hơn, quả óc chó có hạn sử dụng trong
+                                        01 năm nhưng sử dụng tốt nhất trong vòng 2-3 tháng sau
+                                        khi mở túi.
+                                    </p>
+
+                                    <p style="text-align: justify">
+                                        <strong>2. Cách ăn quả óc chó</strong><br />
+                                        Ngày ăn 8 – 10 quả chia đều thành nhiều bữa nhỏ, người
+                                        an kieng nên ăn truoc bữa ăn, uống nhiều nước.
+                                    </p>
+
+                                    <p style="text-align: justify">
+                                        <strong>3. Cách bảo quản quả óc chó</strong><br />
+                                        Bảo quản ở nơi thoáng mát khô ráo, không để hở không
+                                        khí, khi mở túi nên đóng mép kĩ sauu mỗi lần sử dụng, có
+                                        thể cho vào lọ đậy kín bảo quản tốt nhất ở ngăn mát của
+                                        tủ lạnh.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade"
+                                 id="questions"
+                                 role="tabpanel"
+                                 aria-labelledby="questions-tab">
+                                <div class="rte">
+                                    Các nội dung Hướng dẫn mua hàng viết ở đây
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion d-block d-md-none" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne"
+                                        aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                    Mô tả sản phẩm
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseOne"
+                                 class="accordion-collapse collapse show"
+                                 aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="rte">
+                                    <p style="text-align: justify">
+                                        Quả óc chó giúp bà bầu bổ sung các chất dinh dưỡng thiết
+                                        yếu nhất như Omega-3, Vitamin E, phốt pho và Axit Amin
+                                        L-Arginne. Đặc biệt hàm lượng Omega-3 trong quả óc chó
+                                        lớn hơn 3 lần trong cá hồi, giúp thúc đẩy sự phát triển
+                                        đại não của thai nhi và trẻ nhỏ. Nếu các mẹ kiên trì ăn
+                                        quả óc chó trong suốt thời gian thai kỳ, em bé sinh ra
+                                        sẽ rất thông minh khỏe mạnh.&nbsp;
+                                    </p>
+
+                                    <p style="text-align: center">
+                                        <img src="../images/hatocho_product.jpg"
+                                             class="img-thumbnail" />
+                                    </p>
+
+                                    <p style="text-align: justify">
+                                        <strong>1. Cách sử dụng quả óc chó</strong><br />
+                                        Dùng kìm kẹp quả óc chó, sau do ăn phần nhân, phần vẩy ở
+                                        giữa bỏ, có thể dùng óc chó làm bánh, làm nhân sôcola,
+                                        ép lấy dầu, dùng với sữa tươi, ngon hơn khi bỏ óc chó
+                                        vào lò vi sóng với nhiệt độ 160 độ rồi lấy ra bóc ăn, sẽ
+                                        có vị thơm và bùi hơn, quả óc chó có hạn sử dụng trong
+                                        01 năm nhưng sử dụng tốt nhất trong vòng 2-3 tháng sau
+                                        khi mở túi.
+                                    </p>
+
+                                    <p style="text-align: justify">
+                                        <strong>2. Cách ăn quả óc chó</strong><br />
+                                        Ngày ăn 8 – 10 quả chia đều thành nhiều bữa nhỏ, người
+                                        an kieng nên ăn truoc bữa ăn, uống nhiều nước.
+                                    </p>
+
+                                    <p style="text-align: justify">
+                                        <strong>3. Cách bảo quản quả óc chó</strong><br />
+                                        Bảo quản ở nơi thoáng mát khô ráo, không để hở không
+                                        khí, khi mở túi nên đóng mép kĩ sauu mỗi lần sử dụng, có
+                                        thể cho vào lọ đậy kín bảo quản tốt nhất ở ngăn mát của
+                                        tủ lạnh.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo"
+                                        aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                    Hỏi đáp về sản phẩm
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo"
+                                 class="accordion-collapse collapse"
+                                 aria-labelledby="headingTwo"
+                                 data-bs-parent="#accordionExample">
+                                <div class="rte">
+                                    Các nội dung Hướng dẫn mua hàng viết ở đây
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section_best-seller">
+                <div class="container">
+                    <div class="row">
+                        <div class="title_brand heading">
+                            <h2 class="title-head" title="Danh mục sản phẩm">
+                                <a href="#" class="text_gradient heading_product">sản phẩm liên quan</a>
+                            </h2>
+                        </div>
+
+                        <div class="content_news row">
+                            <div class="col-6 col-lg-3 col-sm-6">
+                                <div class="item">
+                                    <div class="product-box-h">
+                                        <div class="product-thumbnail">
+                                            <a class="image_link d-flex justify-content-center align-item-center"
+                                               href="#"
+                                               title="Vải thiều">
+                                                <img src="../images/quavaithieu_product.jpg"
+                                                     alt="Vải Thiều" />
+                                            </a>
+                                            <div class="product-action">
+                                                <form>
+                                                    <div class="group_action">
+                                                        <input type="hidden"
+                                                               name="variantId"
+                                                               value="23813709" />
+                                                        <button class="btn-buy btn-cart btn btn-circle add_to_cart"
+                                                                title="Mua ngay"></button>
+
+                                                        <a title="Xem nhanh"
+                                                           href="#"
+                                                           class="xem_nhanh btn-circle btn_view btn">
+                                                        </a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-name">
+                                                <a href="#" title="Vải thiều">
+                                                    Vải thiều Thanh Hà
+                                                </a>
+                                            </h3>
+
+                                            <div class="product-hideoff">
+                                                <div class="product-hide">
+                                                    <div class="price-box">
+                                                        <div class="special-price">
+                                                            <span class="price product-price">
+                                                                40.000₫
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="old-price">
+                                                            <span class="price product-price-old">
+                                                                79.000₫
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-sm-6">
+                                <div class="item">
+                                    <div class="product-box-h">
+                                        <div class="product-thumbnail">
+                                            <a class="image_link d-flex justify-content-center align-item-center"
+                                               href="#"
+                                               title="Vải thiều">
+                                                <img src="../images/quavaithieu_product.jpg"
+                                                     alt="Vải Thiều" />
+                                            </a>
+                                            <div class="product-action">
+                                                <form>
+                                                    <div class="group_action">
+                                                        <input type="hidden"
+                                                               name="variantId"
+                                                               value="23813709" />
+                                                        <button class="btn-buy btn-cart btn btn-circle add_to_cart"
+                                                                title="Mua ngay"></button>
+
+                                                        <a title="Xem nhanh"
+                                                           href="#"
+                                                           class="xem_nhanh btn-circle btn_view btn">
+                                                        </a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-name">
+                                                <a href="#" title="Vải thiều">
+                                                    Vải thiều Thanh Hà
+                                                </a>
+                                            </h3>
+
+                                            <div class="product-hideoff">
+                                                <div class="product-hide">
+                                                    <div class="price-box">
+                                                        <div class="special-price">
+                                                            <span class="price product-price">
+                                                                40.000₫
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="old-price">
+                                                            <span class="price product-price-old">
+                                                                79.000₫
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-sm-6">
+                                <div class="item">
+                                    <div class="product-box-h">
+                                        <div class="product-thumbnail">
+                                            <a class="image_link d-flex justify-content-center align-item-center"
+                                               href="#"
+                                               title="Vải thiều">
+                                                <img src="../images/quavaithieu_product.jpg"
+                                                     alt="Vải Thiều" />
+                                            </a>
+                                            <div class="product-action">
+                                                <form>
+                                                    <div class="group_action">
+                                                        <input type="hidden"
+                                                               name="variantId"
+                                                               value="23813709" />
+                                                        <button class="btn-buy btn-cart btn btn-circle add_to_cart"
+                                                                title="Mua ngay"></button>
+
+                                                        <a title="Xem nhanh"
+                                                           href="#"
+                                                           class="xem_nhanh btn-circle btn_view btn">
+                                                        </a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-name">
+                                                <a href="#" title="Vải thiều">
+                                                    Vải thiều Thanh Hà
+                                                </a>
+                                            </h3>
+
+                                            <div class="product-hideoff">
+                                                <div class="product-hide">
+                                                    <div class="price-box">
+                                                        <div class="special-price">
+                                                            <span class="price product-price">
+                                                                40.000₫
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="old-price">
+                                                            <span class="price product-price-old">
+                                                                79.000₫
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-sm-6">
+                                <div class="item">
+                                    <div class="product-box-h">
+                                        <div class="product-thumbnail">
+                                            <a class="image_link d-flex justify-content-center align-item-center"
+                                               href="#"
+                                               title="Vải thiều">
+                                                <img src="../images/quavaithieu_product.jpg"
+                                                     alt="Vải Thiều" />
+                                            </a>
+                                            <div class="product-action">
+                                                <form>
+                                                    <div class="group_action">
+                                                        <input type="hidden"
+                                                               name="variantId"
+                                                               value="23813709" />
+                                                        <button class="btn-buy btn-cart btn btn-circle add_to_cart"
+                                                                title="Mua ngay"></button>
+
+                                                        <a title="Xem nhanh"
+                                                           href="#"
+                                                           class="xem_nhanh btn-circle btn_view btn">
+                                                        </a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-name">
+                                                <a href="#" title="Vải thiều">
+                                                    Vải thiều Thanh Hà
+                                                </a>
+                                            </h3>
+
+                                            <div class="product-hideoff">
+                                                <div class="product-hide">
+                                                    <div class="price-box">
+                                                        <div class="special-price">
+                                                            <span class="price product-price">
+                                                                40.000₫
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="old-price">
+                                                            <span class="price product-price-old">
+                                                                79.000₫
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+

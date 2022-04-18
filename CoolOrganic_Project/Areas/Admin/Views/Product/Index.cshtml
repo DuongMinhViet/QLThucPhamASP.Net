@@ -1,0 +1,495 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+<div class="content">
+    <div class="content-header">
+    </div>
+    <div class="content-body">
+        <div class="page-title">
+            <h1>Danh sách sản phẩm</h1>
+        </div>
+        <div class="grid-content">
+            <div class="toolbar">
+                <div class="Control-Button">
+                    <button class="btnAdd"><i class="icon icon-add"></i>Thêm mới</button>
+                    <button class="btnEdit"><i class="icon icon-edit"></i>Sửa</button>
+                    <button class="btnDelete"><i class="icon icon-delete"></i>Xoá</button>
+                </div>
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control text-search" placeholder="Tìm kiếm" />
+                    </div>
+                    <button type="button" class="btn btn-primary btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="grid">
+                <table id="tblProduct" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Mã danh mục</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Đơn giá bán</th>
+                            <th>Số lượng</th>
+                            <th>Đơn vị tính</th>
+                            <th>Ảnh</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allProduct"></tbody>
+                </table>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination" style="margin:0" id="PhanTrang">
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="dialog"></div>
+<div class="dialog-product">
+    <div class="dialog-product-title">
+        <div class="title-text">
+            Thông tin sản phẩm
+        </div>
+        <div class="title-close-button"></div>
+    </div>
+    <div class="dialog-product-body">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Mã sản phẩm: </td>
+                    <td><input type="text" id="txtMaSanPham" name="MaSanPham" placeholder="Mã sản phẩm" /></td>
+                </tr>
+                <tr>
+                    <td>Mã danh mục: </td>
+                    <td><input type="text" id="txtMaDanhMuc" name="MaDanhMuc" placeholder="Mã danh mục" value="" /></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding: 3px 6px">
+                                Thể loại
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu list-group" id="type-menu" aria-labelledby="dropdownMenu1">
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tên sản phẩm: </td>
+                    <td><input type="text" id="txtTenSanPham" name="TenSanPham" placeholder="Tên sản phẩm" /></td>
+                </tr>
+                <tr>
+                    <td>Đơn giá bán: </td>
+                    <td><input type="text" id="txtDonGiaban" name="DonGiaban" placeholder="Đơn giá bán" /></td>
+                </tr>
+                <tr>
+                    <td>Số lượng: </td>
+                    <td><input type="text" id="txtSoLuong" name="SoLuong" placeholder="Số lượng" /></td>
+                </tr>
+                <tr>
+                    <td>Đơn vị tính: </td>
+                    <td><input type="text" id="txtDonViTinh" name="DonViTinh" placeholder="Đơn vị tính" /></td>
+                </tr>
+                <tr>
+                    <td>Ảnh: </td>
+                    <td><input type="text" id="txtAnh" name="Anh" placeholder="Ảnh" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="dialog-product-button add-button" style="display:none">
+        <button class="btnSave Save-Add btn-primary" onclick="InsertProduct();">Thêm mới</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+    <div class="dialog-product-button edit-button" style="display:none">
+        <button class="btnSave Save-Edit btn-primary" onclick="EditProduct();">Sửa</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+    <div class="dialog-product-button delete-button" style="display:none">
+        <button class="btnSave Save-Delete btn-primary" onclick="DeleteProduct();">Xoá</button>
+        <button class="btnCancel btn-default">Huỷ</button>
+    </div>
+</div>
+
+<script>
+    var Page = 1;
+    var numberPage = 7;
+    $(document).ready(function () {
+        ButtonClickEvent();
+        ListProduct(Page);
+        ListCategory();
+    })
+    function ButtonClickEvent() {
+        $('#PhanTrang').on('click', 'li', function (e) {
+            e.preventDefault();
+            Page = $(this).text();
+            ListProduct(Page);
+        })
+        $('.btnAdd').click(function () {
+            $('.dialog-product input').val(null);
+            $('.dialog').show();
+            $('.dialog-product').show();
+            $('.add-button').show();
+            $('.edit-button').hide();
+            $('.delete-button').hide();
+            $('.dialog-product-body input').removeAttr('disabled');
+            $('#txtMaDanhMuc').attr('disabled', 'disabled');
+            $('#txtMaSanPham').attr('disabled', 'disabled');
+
+            $.ajax({
+                url: 'https://localhost:44397/GetLastProduct',
+                method: 'GET',
+                success: function (response) {
+                    var MaSanPham = response + 1;
+                    $('#txtMaSanPham').val(MaSanPham);
+                }
+            })
+
+        });
+        $('.btnEdit').click(function () {
+            //Lấy dữ liệu của sách đã chọn tương ứng
+            var trSelected = $('#allProduct tr.row-selected');
+            if (trSelected.length > 0) {
+                //hiện thị form tương ứng
+                $('.dialog-product-body input').removeAttr('disabled');
+                $('.dialog').show();
+                $('.dialog-product').show();
+                $('.edit-button').show();
+                $('.add-button').hide();
+                $('.delete-button').hide();
+                $('#txtMaDanhMuc').attr('disabled', 'disabled');
+                var MaSanPham = $(trSelected).children()[0].textContent;
+                $.ajax({
+                    url: 'https://localhost:44397/GetProduct/' + MaSanPham,
+                    method: 'GET'
+                }).done(function (response) {
+                    if (!response) {
+                        alert("Không có sản phẩm có mã là: " + MaSanPham);
+                    }
+                    else {
+                        //binding các thông tin của sản phẩm lên fom
+                        $('#txtMaSanPham').val(response.MaSanPham);
+                        $('#txtMaSanPham').attr('disabled', 'true');
+                        $('#txtMaDanhMuc').val(response.MaDanhMuc);
+                        $('#txtTenSanPham').val(response.TenSanPham);
+                        $('#txtDonGiaban').val(response.DonGiaban);
+                        $('#txtSoLuong').val(response.SoLuong);
+                        $('#txtDonViTinh').val(response.DonViTinh);
+                        $('#txtAnh').val(response.Anh);
+                    }
+                }).fail(function (response) {
+
+                })
+            }
+            else {
+                alert('Bạn phải chọn sản phẩm cần chỉnh sửa');
+            }
+        });
+        $('.btnDelete').click(function () {
+            //Lấy dữ liệu ở hàng tương ứng
+            var trSelected = $('#allProduct tr.row-selected');
+            if (trSelected.length > 0) {
+                $('.dialog').show();
+                $('.dialog-product').show();
+                $('.edit-button').hide();
+                $('.add-button').hide();
+                $('.delete-button').show();
+                $('#txtMaDanhMuc').attr('disabled', 'disabled');
+                var MaSanPham = $(trSelected).children()[0].textContent;
+                $.ajax({
+                    url: 'https://localhost:44397/GetProduct/' + MaSanPham,
+                    method: 'GET'
+                }).done(function (response) {
+                    if (!response) {
+                        alert("Không có sản phẩm có mã là: " + MaSach);
+                    }
+                    else {
+                        //binding các thông tin của sản phẩm lên fom
+                        $('#txtMaSanPham').val(response.MaSanPham);
+                        $('#txtMaDanhMuc').val(response.MaDanhMuc);
+                        $('#txtTenSanPham').val(response.TenSanPham);
+                        $('#txtDonGiaban').val(response.DonGiaban);
+                        $('#txtSoLuong').val(response.SoLuong);
+                        $('#txtDonViTinh').val(response.DonViTinh);
+                        $('#txtAnh').val(response.Anh);
+                        $('.dialog-product-body input').attr('disabled', 'true');
+                    }
+                }).fail(function (response) {
+
+                })
+            }
+            else {
+                alert('Bạn phải chọn sản phẩm cần xoá');
+            }
+        });
+        $('.btnCancel').click(function () {
+            $('.dialog').hide();
+            $('.dialog-product').hide();
+        });
+        $('.title-close-button').click(function () {
+            $('.dialog').hide();
+            $('.dialog-product').hide();
+        })
+    }
+    function ListProduct(Page) {
+        var url = 'https://localhost:44397/ListProduct/' + Page;
+        $.ajax({
+            url: url,
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+
+            },
+            success: function (response) {
+                $('allProduct').empty();
+                const len = response.length;
+                console.log(response);
+                let table = '';
+                for (var i = 0; i < len; ++i) {
+                    table = table + '<tr>';
+                    table = table + '<td>' + response[i].MaSanPham + '</td>';
+                    table = table + '<td>' + response[i].MaDanhMuc + '</td>';
+                    table = table + '<td>' + response[i].TenSanPham + '</td>';
+                    table = table + '<td>' + response[i].DonGiaban + '</td>';
+                    table = table + '<td>' + response[i].SoLuong + '</td>';
+                    table = table + '<td>' + response[i].DonViTinh + '</td>';
+                    table = table + '<td>' + response[i].Anh + '</td>';
+                    table = table + '</tr>';
+                }
+                document.getElementById('allProduct').innerHTML = table;
+            },
+            fail: function (response) { }
+        });
+        let li = ' ';
+        for (i = 1; i <= numberPage; i++) {
+            li = li + '<li><a href="#">' + i + '</a></li>'
+        }
+        document.getElementById('PhanTrang').innerHTML = li;
+    }
+    function ListCategory() {
+        $.ajax({
+            url: 'https://localhost:44397/ListCategory',
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+
+            },
+            success: function (response) {
+                const len = response.length;
+                console.log(response);
+                let ul = '';
+                for (var i = 0; i < len; i++) {
+                    ul = ul + '<li><a>' + response[i].TenDanhMuc + '</a></li>';
+                }
+                document.getElementById("type-menu").innerHTML = ul;
+            },
+            fail: function (response) { }
+        });
+    }
+    function InsertProduct() {
+        //Validate dữ liệu
+        const number = /^\d+$/;
+        var MaSanPham = $('#txtMaSanPham').val();
+        var MaDanhMuc = $('#txtMaDanhMuc').val()
+        var TenSanPham = $('#txtTenSanPham').val();
+        var DonGiaban = $('#txtDonGiaban').val();;
+        var SoLuong = $('#txtSoLuong').val();
+        var DonViTinh = $('#txtDonViTinh').val()
+        var Anh = $('#txtAnh').val()
+        if (!TenSanPham) {
+            $('#txtTenSanPham').addClass('required-error');
+            $('#txtTenSanPham').focus();
+            $('#txtTenSanPham').attr("placeholder", "Bạn phải nhập tên sản phẩm");
+            return;
+        }
+        if (number.test(DonGiaban) == false) {
+            $('#txtDonGiaban').addClass('required-error');
+            $('#txtDonGiaban').focus();
+            $('#txtDonGiaban').attr("title", "Bạn phải nhập đơn giá bán");
+            return;
+        }
+        if (number.test(SoLuong) == false) {
+            $('#txtSoLuong').addClass('required-error');
+            $('#txtSoLuong').focus();
+            $('#txtSoLuong').attr("title", "Bạn phải nhập số lượng");
+            return;
+        }
+        var url = 'https://localhost:44397/api/manage?MaSanPham=' + MaSanPham +
+            '&MaDanhMuc=' + MaDanhMuc +
+            '&TenSanPham=' + TenSanPham +
+            '&DonGiaban=' + DonGiaban +
+            '&SoLuong=' + SoLuong +
+            '&DonViTinh=' + DonViTinh +
+            '&Anh=' + Anh;
+        $.ajax({
+            url: url,
+            method: 'POST',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+                alert("Thêm mới không thành công");
+            },
+            success: function (reponse) {
+                alert("Thêm mới thành công");
+                ListProduct(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            }
+        });
+    }
+    function EditProduct() {
+        //CHỉnh sửa dữ liệu trên form
+        //Validate dữ liệu
+        const number = /^\d+$/;
+        var MaSanPham = $('#txtMaSanPham').val();
+        var MaDanhMuc = $('#txtMaDanhMuc').val()
+        var TenSanPham = $('#txtTenSanPham').val();
+        var DonGiaban = $('#txtDonGiaban').val();;
+        var SoLuong = $('#txtSoLuong').val();
+        var DonViTinh = $('#txtDonViTinh').val()
+        var Anh = $('#txtAnh').val()
+        if (!MaSanPham) {
+            $('#txtMaSanPham').addClass('required-error');
+            $('#txtMaSanPham').focus();
+            $('#txtMaSanPham').attr("placeholder", "Bạn phải nhập mã sản phẩm");
+            return;
+        }
+        if (!TenSanPham) {
+            $('#txtTenSanPham').addClass('required-error');
+            $('#txtTenSanPham').focus();
+            $('#txtTenSanPham').attr("placeholder", "Bạn phải nhập tên sản phẩm");
+            return;
+        }
+        if (number.test(DonGiaban) == false) {
+            $('#txtDonGiaban').addClass('required-error');
+            $('#txtDonGiaban').focus();
+            $('#txtDonGiaban').attr("title", "Bạn phải nhập đơn giá bán");
+            return;
+        }
+        if (number.test(SoLuong) == false) {
+            $('#txtSoLuong').addClass('required-error');
+            $('#txtSoLuong').focus();
+            $('#txtSoLuong').attr("title", "Bạn phải nhập số lượng");
+            return;
+        }
+        //Thực hiện lưu dữ liệu
+        var url = 'https://localhost:44397/api/manage?MaSanPham=' + MaSanPham +
+            '&MaDanhMuc=' + MaDanhMuc +
+            '&TenSanPham=' + TenSanPham +
+            '&DonGiaban=' + DonGiaban +
+            '&SoLuong=' + SoLuong +
+            '&DonViTinh=' + DonViTinh +
+            '&Anh=' + Anh;
+        $.ajax({
+            url: url,
+            method: 'PUT',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+                alert("Sửa thông tin sản phẩm không thành công");
+            },
+            success: function (response) {
+                alert("Sửa thông tin sản phẩm thành công");
+                ListProduct(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            }
+        });
+    }
+    function DeleteProduct() {
+        //Lấy ra mã sách đang được chọn
+        var MaSanPham = $('#txtMaSanPham').val();
+        var url = 'https://localhost:44397/DeleteProduct/' + MaSanPham;
+        $.ajax({
+            url: url,
+            method: 'DELETE',
+            contentType: 'json',
+            dataType: 'json',
+            success: function (response) {
+                alert("Xoá thông tin sản phẩm thành công");
+                ListProduct(Page);
+                $('.dialog').hide();
+                $('.dialog-product').hide();
+            },
+            error: function () {
+                alert("Xoá thông tin sản phẩm không thành công");
+            }
+        });
+    }
+
+    //Click vào mỗi dòng dữ liệu
+    $(document).on('click', '#allProduct tr', function () {
+        $(this).siblings().removeClass('row-selected');
+        $(this).addClass('row-selected');
+    })
+    $('html').click(function () {
+        $('#allProduct tr').siblings().removeClass('row-selected');
+    })
+</script>
+<script>
+    //Link ra mã thư mục
+    $(document).on('click', 'ul#type-menu li', function () {
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        var TenDanhMuc = $('ul#type-menu li.active').text();
+        $.ajax({
+            url: 'https://localhost:44397/GetIdCategory/' + TenDanhMuc,
+            method: 'GET'
+        }).done(function (response) {
+            $('#txtMaDanhMuc').val(response);
+        }).fail(function (response) {
+
+        })
+    })
+
+    //Search thông tin
+    $('.text-search').change(function () {
+        $('nav').removeAttr('style', 'display:none;');
+        ListProduct(Page);
+    })
+    $('.btn-search').click(function () {
+        $('nav').attr('style', 'display:none;');
+        const trang = 1;
+        var text = $('.text-search').val();
+        var url = 'https://localhost:44397/SearchProduct/' + text + '/' + trang;
+        $.ajax({
+            url: url,
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {
+            },
+            success: function (response) {
+                $('allProduct').empty();
+                const len = response.length;
+                console.log(response);
+                let table = '';
+                for (var i = 0; i < len; ++i) {
+                    table = table + '<tr>';
+                    table = table + '<td>' + response[i].MaSanPham + '</td>';
+                    table = table + '<td>' + response[i].MaDanhMuc + '</td>';
+                    table = table + '<td>' + response[i].TenSanPham + '</td>';
+                    table = table + '<td>' + response[i].DonGiaban + '</td>';
+                    table = table + '<td>' + response[i].SoLuong + '</td>';
+                    table = table + '<td>' + response[i].DonViTinh + '</td>';
+                    table = table + '<td>' + response[i].Anh + '</td>';
+                    table = table + '</tr>';
+                }
+                document.getElementById('allProduct').innerHTML = table;
+            },
+            fail: function (response) { }
+        });
+    })
+
+</script>
+
+

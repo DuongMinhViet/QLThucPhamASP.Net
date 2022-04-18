@@ -1,0 +1,174 @@
+﻿@model CoolOrganic_Project.Models.Cart
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+@if (Model != null)
+{
+    <main>
+        <div class="container">
+            <div class="row">
+                <section class="title_container">
+                    <div class="text-center">
+                        <p class="title_page">Giỏ hàng</p>
+                    </div>
+                    <div class="title_content">
+                        <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    @Html.ActionLink("Trang chủ", "Index", "TrangChu")
+                                </li>
+
+                                <li class="breadcrumb-item active"
+                                    aria-current="page"
+                                    style="color: rgb(170, 196, 97)">
+                                    Giỏ hàng
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </section>
+
+                <section class="cart_container">
+                    <div class="header-cart">
+                        <h1 title="Giỏ hàng của bạn">
+                            <a href="#">Giỏ hàng của bạn </a>
+                        </h1>
+                    </div>
+                    <div class="content-cart">
+                       
+                            <form action="">
+                                <div class="shadow mt-5"
+                                     style="
+                                    border: 1px solid rgb(54, 58, 60);
+                                    border-radius: 20px;
+                                    padding: 30px;
+                                    margin-bottom: 5px;
+                                   ">
+                                    <table class="table table-borderless">
+                                        <thead class="d-none">
+                                            <tr>
+                                                <th scope="col" style="width: 10%">Sản phẩm</th>
+                                                <th scope="col"
+                                                    style="width: 50%; align-items: flex-start">
+                                                    Giá
+                                                </th>
+                                                <th scope="col" style="width: 18%">Số lượng</th>
+                                                <th scope="col"
+                                                    style="
+                                                    width: 18%;
+                                                    align-items: flex-end;
+                                                    padding-right: 0;
+                                                  ">
+                                                    Sản phẩm
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Items)
+                                            {
+                                                double total = Convert.ToDouble(item._shopping_product.DonGiaban * item._shopping_quantity);
+                                                <tr>
+                                                    <th scope="row" style="width: 10%">
+                                                        <div class="cart1 d-flex justify-content-start align-items-center">
+                                                            <a class="product-image"
+                                                               title="@item._shopping_product.TenSanPham"
+                                                               href="#">
+                                                                <img alt="@item._shopping_product.TenSanPham"
+                                                                     src="~/Content/images/@item._shopping_product.Anh" />
+                                                            </a>
+                                                        </div>
+                                                    </th>
+                                                    <td style="width: 50%">
+                                                        <div class="cart2 d-flex align-items-start flex-column">
+                                                            <h2>
+                                                                <a title="@item._shopping_product.TenSanPham" href="#">
+                                                                    @Html.DisplayFor(model => item._shopping_product.TenSanPham)
+                                                                </a>
+                                                            </h2>
+                                                            <span class="item-price">
+                                                                @Html.DisplayFor(model => item._shopping_product.DonGiaban)₫
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 25%">
+                                                        <div class="cart3">
+                                                            <div class="input_qty_pr mt-4">
+                                                                @using (Html.BeginForm("Update_Quantity_Cart", "CartProduct"))
+                                                                {
+                                                                    <input type="hidden"
+                                                                           name="idProduct"
+                                                                           value="@item._shopping_product.MaSanPham" />
+                                                                    <input type="number"
+                                                                           class="input-text"
+                                                                           name="quantity"
+                                                                           value="@item._shopping_quantity" />
+                                                                    <button type="submit" class="rounded p-2 ms-2">Cập nhật</button>
+                                                                }
+                                                                <a title="Xóa"
+                                                                   href="/CartProduct/RemoveCart/@item._shopping_product.MaSanPham"
+                                                                   class="d-block d-md-none mt-3 ms-4">
+                                                                    <span><i class="fas fa-trash pe-2"></i></span>Xóa
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 18%">
+                                                        <div class="cart4 d-none d-md-flex flex-column align-items-end pe-0">
+                                                            <span class="total">Tổng tiền:</span>
+                                                            <span class="cart-price"> @total₫</span>
+                                                            <a title="Xóa" href="/CartProduct/RemoveCart/@item._shopping_product.MaSanPham">
+                                                                <span><i class="fas fa-trash pe-2"></i></span>Xóa
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                            <table class="table table-borderless mb-0 shopping-cart-table-total"
+                                   id="shopping-cart-totals-table">
+                                <colgroup>
+                                    <col />
+                                    <col />
+                                </colgroup>
+                                <tfoot>
+                                    <tr>
+                                        <td class="d-flex justify-content-md-end justify-content-between">
+                                            <span class="tt">Thành tiền:</span>
+                                            <strong class="totals_price"> @Model.Total_Money()₫ </strong>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="checkout d-flex flex-column flex-md-row justify-content-end">
+                                <a href="/CartProduct/CheckOut">
+                                    <button class="btn btn-gray mb-3"
+                                            title="Tiến hành đặt hàng"
+                                            type="button">
+                                        <span style="text-transform: initial">Đặt hàng ngay</span>
+                                    </button>
+                                </a>
+                                <a href="/TrangChu/Index">
+                                    <button class="btn btn-gradient"
+                                            title="Tiếp tục mua hàng"
+                                            type="button">
+                                        <span style="text-transform: initial">Tiếp tục mua hàng</span>
+                                    </button>
+                                </a>
+                            </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+}
+
+

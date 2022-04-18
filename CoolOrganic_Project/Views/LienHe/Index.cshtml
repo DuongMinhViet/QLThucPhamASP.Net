@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<main>
+    <div class="container">
+        <div class="row">
+            <section class="title_container">
+                <div class="text-center">
+                    <p class="title_page">Liên hệ</p>
+                </div>
+                <div class="title_content">
+                    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="../index.html">Trang chủ</a>
+                            </li>
+
+                            <li class="breadcrumb-item active"
+                                aria-current="page"
+                                style="color: rgb(170, 196, 97)">
+                                Liên hệ
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </section>
+
+            <section class="contact_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="contact">
+                                <ul class="p-0">
+                                    <li class="li_footer_h">
+                                        <span class="txt_content_child">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span class="add">
+                                                Toà nhà Ladeco, 266 Đội Cấn, phường Liễu Giai, Quận
+                                                Ba Đình, Hà Nội
+                                            </span>
+                                        </span>
+                                    </li>
+                                    <li class="li_footer_h">
+                                        <i class="fas fa-mobile-alt"></i>
+
+                                        <a href="tel:19006750">19006750</a>
+                                    </li>
+                                    <li class="li_footer_h">
+                                        <i class="far fa-envelope"></i>
+
+                                        <a href="mailto:support@sapo.vn"> support@sapo.vn</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="page-login">
+                                <h1 class="title-head-contact">
+                                    <span>Liên hệ với chúng tôi</span>
+                                </h1>
+                                <div id="pagelogin" class="mt-3">
+                                    <form accept-charset="utf-8"
+                                          action="/contact"
+                                          id="contact"
+                                          method="post">
+                                        <input name="FormType" type="hidden" value="contact" />
+                                        <input name="utf8" type="hidden" value="true" />
+                                        <input type="hidden" id="" name="Token" value="" />
+
+                                        <div class="form-signup">
+                                            <div class="row group_contact">
+                                                <fieldset class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <input placeholder="Họ và tên"
+                                                           type="text"
+                                                           class="form-control form-control-lg"
+                                                           required=""
+                                                           value=""
+                                                           name="contact[Name]" />
+                                                </fieldset>
+                                                <fieldset class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <input placeholder="Email"
+                                                           type="email"
+                                                           required=""
+                                                           id="email1"
+                                                           class="form-control form-control-lg"
+                                                           value=""
+                                                           name="contact[email]" />
+                                                </fieldset>
+                                                <fieldset class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <textarea placeholder="Nội dung"
+                                                              name="contact[body]"
+                                                              id="comment"
+                                                              class="form-control content-area form-control-lg"
+                                                              rows="5"
+                                                              required=""></textarea>
+                                                </fieldset>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <button type="submit"
+                                                            class="btn btn-primary btn-comment button_gradient">
+                                                        Gửi liên hệ
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12">
+                            <div class="section_mapss">
+                                <div class="box-maps">
+                                    <div class="iFrameMap">
+                                        <div class="google-map">
+                                            <div id="contact_map" class="map">
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.91200565666!2d105.81368971529523!3d21.03620659289907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab128d511a8d%3A0x3440d4c5d63f693!2zMjY2IMSQ4buZaSBD4bqlbiwgTGnhu4V1IEdpYWksIEJhIMSQw6xuaCwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1553499875578"
+                                                        allowfullscreen=""></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
